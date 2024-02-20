@@ -5,6 +5,7 @@
 #define CLK_PIN 13  // CLK or SCK
 #define DATA_PIN 11 // DIN or MOSI
 #define CS_PIN 10   // CS or SS
+#define CS_PIN2 7   // CS2 or SS2
 #define MAX_DEVICES 3
 
 #define PIR_SENSOR1_PIN 3 // Pin for PIR motion sensor 1
@@ -13,6 +14,9 @@
 #define RESTART_BUTTON_PIN 2 // Pin for reset button
 
 MD_Parola myDisplay = MD_Parola(MD_MAX72XX::FC16_HW, CS_PIN, MAX_DEVICES);
+// Adjust the MAX_DEVICES value to match the number of connected 788AS modules
+
+MD_Parola myDisplay2 = MD_Parola(MD_MAX72XX::FC16_HW, CS_PIN2, MAX_DEVICES);
 // Adjust the MAX_DEVICES value to match the number of connected 788AS modules
 
 const uint8_t charWidth = 6;                  // Width of each character in pixels
@@ -45,13 +49,18 @@ void setup()
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
 
     myDisplay.setInvert(false);
-    myDisplay.setIntensity(8); // Set the display intensity (0-15, lower value for dimmer display)
-
+    myDisplay.setIntensity(8);                   // Set the display intensity (0-15, lower value for dimmer display)
     messageLength = strlen(message) * charWidth; // Calculate the total width of the text
-
-    myDisplay.displayReset(); // Reset the display to prepare for new content
+    myDisplay.displayReset();                    // Reset the display to prepare for new content
     myDisplay.displayZoneText(0, message, PA_LEFT, 35, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
     myDisplay.displayAnimate();
+
+    myDisplay2.setInvert(false);
+    myDisplay2.setIntensity(8);                  // Set the display intensity (0-15, lower value for dimmer display)
+    messageLength = strlen(message) * charWidth; // Calculate the total width of the text
+    myDisplay2.displayReset();                   // Reset the display to prepare for new content
+    myDisplay2.displayZoneText(0, message, PA_LEFT, 35, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+    myDisplay2.displayAnimate();
 }
 
 void loop()
@@ -143,6 +152,9 @@ void loop()
             {
                 delay(30);
             }
+            char buf[6] = "";
+            String(score).toCharArray(buf, 10, 0);
+            myDisplay2.displayZoneText(0, buf, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
             if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
