@@ -1,4 +1,4 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "arduinoLed\\arduinoLed.ino"
+    "sketch": "ledTest\\ledTest.ino"
 }
