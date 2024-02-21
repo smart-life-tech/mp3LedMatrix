@@ -6,7 +6,7 @@
 #define DATA_PIN 11 // DIN or MOSI
 #define CS_PIN 10   // CS or SS
 #define CS_PIN2 7   // CS2 or SS2
-#define MAX_DEVICES 3
+#define MAX_DEVICES 4
 
 #define PIR_SENSOR1_PIN 3 // Pin for PIR motion sensor 1
 #define PIR_SENSOR2_PIN 4 // Pin for PIR motion sensor 2
