@@ -2,8 +2,8 @@
 #include <MD_MAX72xx.h>
 #include <SPI.h>
 
-#define CLK_PIN 13  // CLK or SCK
-#define DATA_PIN 11 // DIN or MOSI
+#define CLK_PIN 6  // CLK or SCK
+#define DATA_PIN 5 // DIN or MOSI
 #define CS_PIN 10   // CS or SS
 #define CS_PIN2 7   // CS2 or SS2
 #define MAX_DEVICES 4
