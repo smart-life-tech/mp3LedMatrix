@@ -17,7 +17,7 @@ MD_Parola myDisplay = MD_Parola(MD_MAX72XX::FC16_HW, CS_PIN, MAX_DEVICES);
 // Adjust the MAX_DEVICES value to match the number of connected 788AS modules
 
 //MD_Parola myDisplay2 = MD_Parola(MD_MAX72XX::FC16_HW, CS_PIN2, MAX_DEVICES);
- MD_Parola myDisplay2 = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
+ MD_Parola myDisplay2 = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN2, MAX_DEVICES);
 // Adjust the MAX_DEVICES value to match the number of connected 788AS modules
 
 const uint8_t charWidth = 6;                  // Width of each character in pixels
