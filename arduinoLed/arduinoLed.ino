@@ -43,6 +43,7 @@ int currentText = 0;
 void setup()
 {
     myDisplay.begin();
+    myDisplay2.begin();
     pinMode(PIR_SENSOR1_PIN, INPUT);
     pinMode(PIR_SENSOR2_PIN, INPUT);
 
