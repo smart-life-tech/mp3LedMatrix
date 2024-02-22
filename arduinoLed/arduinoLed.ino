@@ -131,8 +131,7 @@ void loop()
             score++;
             char buffer[20];        // Make sure buffer is large enough to hold the converted string
             itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
-            myDisplay2.displayText(buffer, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
-            myDisplay2.displayAnimate();
+
             sprintf(message, "%d", score);
             myDisplay.displayReset();
             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
@@ -176,6 +175,8 @@ void loop()
                         {
                         case 0:
                             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                            myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                            myDisplay2.displayAnimate();
                             currentText = 1;
                             break;
 
@@ -185,7 +186,7 @@ void loop()
                             break;
                         }
 
-                        myDisplay.displayAnimate();
+                        myDisplay.displayAnimate();myDisplay2.displayAnimate();
                     }
                 }
             }
