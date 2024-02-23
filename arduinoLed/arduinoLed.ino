@@ -58,7 +58,12 @@ void setup()
     myDisplay2.setIntensity(0); // Set the brightness of the second display (0-15)
     myDisplay2.displayText("score", PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
     EEPROM.begin();
+    char buffer[19];
     score = EEPROM.read(0);
+    buffer[19] = '\0';
+
+    itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
+   myDisplay2.displayText(buffer, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
 }
 
 void loop()
@@ -182,7 +187,7 @@ void loop()
 
                             itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
                             int update = String(message).toInt();
-                            if (update > lastUpdate)
+                            if (score > lastUpdate)
                             {
                                 lastUpdate = update;
                                 EEPROM.update(0, score);
