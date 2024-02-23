@@ -152,7 +152,7 @@ void loop()
             {
                 delay(30);
             }
-            if (score == mappedScore - 1 || score == mappedScore)
+            if (score >= mappedScore - 1 || score >= mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
                 while (true)
