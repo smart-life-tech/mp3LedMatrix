@@ -1,13 +1,13 @@
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
 #include <SPI.h>
-
+#include <EEPROM.h>
 #define CLK_PIN 13    // CLK or SCK
 #define DATA_PIN 11   // DIN or MOSI
 #define CS_PIN 10     // CS or SS
 #define CS_PIN2 9     // Pin connected to the CS pin of the second display
 #define MAX_DEVICES 4 // Number of connected 788AS modules per display
-
+int lastUpdate = 0;
 #define PIR_SENSOR1_PIN 3 // Pin for PIR motion sensor 1
 #define PIR_SENSOR2_PIN 4 // Pin for PIR motion sensor 2
 
@@ -57,6 +57,8 @@ void setup()
     myDisplay2.begin();
     myDisplay2.setIntensity(0); // Set the brightness of the second display (0-15)
     myDisplay2.displayText("score", PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
+    EEPROM.begin();
+    score = EEPROM.read(0);
 }
 
 void loop()
@@ -129,8 +131,6 @@ void loop()
                 rebootArduino();
             }
             score++;
-            char buffer[20];        // Make sure buffer is large enough to hold the converted string
-            itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
 
             sprintf(message, "%d", score);
             myDisplay.displayReset();
@@ -174,9 +174,23 @@ void loop()
                         switch (currentText)
                         {
                         case 0:
+
                             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                            myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                            myDisplay2.displayAnimate();
+                            char buffer[20]; // Make sure buffer is large enough to hold the converted string
+                            char high[10] = "high: ";
+                            buffer[19] = '\0';
+
+                            itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
+                            int update = String(message).toInt();
+                            if (update > lastUpdate)
+                            {
+                                lastUpdate = update;
+                                EEPROM.update(0, score);
+                                // Concatenate high and buffer
+                                strcat(high, message);
+                                myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                                myDisplay2.displayAnimate();
+                            }
                             currentText = 1;
                             break;
 
@@ -186,7 +200,8 @@ void loop()
                             break;
                         }
 
-                        myDisplay.displayAnimate();myDisplay2.displayAnimate();
+                        myDisplay.displayAnimate();
+                        myDisplay2.displayAnimate();
                     }
                 }
             }
