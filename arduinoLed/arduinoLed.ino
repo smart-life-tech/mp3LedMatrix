@@ -2,6 +2,18 @@
 #include <MD_MAX72xx.h>
 #include <SPI.h>
 #include <EEPROM.h>
+#include "Arduino.h"
+#include "DFRobotDFPlayerMini.h"
+#if (defined(ARDUINO_AVR_UNO) || defined(ESP8266)) // Using a soft serial port
+#include <SoftwareSerial.h>
+SoftwareSerial softSerial(/*rx =*/5, /*tx =*/6);
+#define FPSerial softSerial
+#else
+#define FPSerial Serial1
+#endif
+
+DFRobotDFPlayerMini myDFPlayer;
+void printDetail(uint8_t type, int value);
 
 #define CLK_PIN 13  // CLK or SCK
 #define DATA_PIN 11 // DIN or MOSI
@@ -22,7 +34,7 @@ const uint8_t displayWidth = MAX_DEVICES * 8; // Total width of the display in p
 char message[] = "GO GO GO";
 char wonMessage[] = "BooM";
 char lossMessage[] = "Fail";
-char maxMessage[] = "55";
+char maxMessage[] = "";
 uint16_t messageLength;
 int16_t textPosition = displayWidth;
 int score = 0;
@@ -40,6 +52,7 @@ int currentText = 0;
 int maxScore = 0;
 void setup()
 {
+    Serial.begin(9600);
     myDisplay.begin();
     pinMode(PIR_SENSOR1_PIN, INPUT);
     pinMode(PIR_SENSOR2_PIN, INPUT);
@@ -66,6 +79,9 @@ void setup()
 
     // Update display animations for the first display
     myDisplay2.displayAnimate();
+    Serial.println("code started");
+    Serial.println(maxMessage);
+    mp3setup();
 }
 
 void loop()
@@ -145,7 +161,7 @@ void loop()
             myDisplay.displayReset();
             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
             myDisplay.displayAnimate();
-             checkscore(score);
+            checkscore(score);
             if ((score + 30) >= mappedScore)
             {
                 delay(100);
@@ -185,13 +201,22 @@ void loop()
                         {
                         case 0:
                             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                             checkscore(mappedScore);
+                            checkscore(mappedScore);
 
                             currentText = 1;
                             break;
 
                         case 1:
-                            score < 300 ? myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT) : myDisplay.displayZoneText(0, wonMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                            if (score < 300)
+                            {
+                                myDFPlayer.play(2);
+                                myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                            }
+                            else
+                            {
+                                myDFPlayer.play(3);
+                                myDisplay.displayZoneText(0, wonMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                            }
                             currentText = 0;
                             break;
                         }
@@ -222,6 +247,60 @@ void checkscore(int mappedScore)
         myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
         myDisplay2.displayAnimate();
     }
+}
+void mp3setup()
+{
+#if (defined ESP32)
+    FPSerial.begin(9600, SERIAL_8N1, /*rx =*/D3, /*tx =*/D2);
+#else
+    FPSerial.begin(9600);
+#endif
+
+    // Serial.begin(115200);
+
+    Serial.println();
+    Serial.println(F("DFRobot DFPlayer Mini Demo"));
+    Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
+
+    if (!myDFPlayer.begin(FPSerial, /*isACK = */ true, /*doReset = */ true))
+    { // Use serial to communicate with mp3.
+        Serial.println(F("Unable to begin:"));
+        Serial.println(F("1.Please recheck the connection!"));
+        Serial.println(F("2.Please insert the SD card!"));
+        while (true)
+            ;
+    }
+    Serial.println(F("DFPlayer Mini online."));
+
+    myDFPlayer.setTimeOut(500); // Set serial communictaion time out 500ms
+
+    //----Set volume----
+    myDFPlayer.volume(10);   // Set volume value (0~30).
+    myDFPlayer.volumeUp();   // Volume Up
+    myDFPlayer.volumeDown(); // Volume Down
+
+    //----Set different EQ----
+    myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
+    //  myDFPlayer.EQ(DFPLAYER_EQ_POP);
+    //  myDFPlayer.EQ(DFPLAYER_EQ_ROCK);
+    //  myDFPlayer.EQ(DFPLAYER_EQ_JAZZ);
+    //  myDFPlayer.EQ(DFPLAYER_EQ_CLASSIC);
+    //  myDFPlayer.EQ(DFPLAYER_EQ_BASS);
+
+    //----Set device we use SD as default----
+    //  myDFPlayer.outputDevice(DFPLAYER_DEVICE_U_DISK);
+    myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
+    //  myDFPlayer.outputDevice(DFPLAYER_DEVICE_AUX);
+    //  myDFPlayer.outputDevice(DFPLAYER_DEVICE_SLEEP);
+    //  myDFPlayer.outputDevice(DFPLAYER_DEVICE_FLASH);
+
+    //----Mp3 control----
+    //  myDFPlayer.sleep();     //sleep
+    //  myDFPlayer.reset();     //Reset the module
+    //  myDFPlayer.enableDAC();  //Enable On-chip DAC
+    //  myDFPlayer.disableDAC();  //Disable On-chip DAC
+    //  myDFPlayer.outputSetting(true, 15); //output setting, enable the output and set the gain to 15
+    myDFPlayer.play(1); // Play the first mp3
 }
 void rebootArduino()
 {
