@@ -123,6 +123,7 @@ void loop()
         else
         {
             mappedScore = map(timeDifference, 0, 1000, 999, 1);
+            Serial.println(mappedScore);
         }
 
         if (mappedScore > 999)
@@ -188,10 +189,10 @@ void loop()
                             buffer[19] = '\0';
 
                             itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
-                            int update = String(message).toInt();
+                
                             if (score > lastUpdate)
                             {
-                                lastUpdate = update;
+                                lastUpdate = score;
                                 EEPROM.update(0, score);
                                 // Concatenate high and buffer
                                 strcat(high, message);
@@ -199,12 +200,12 @@ void loop()
                                 myDisplay2.displayAnimate();
                             }
                             currentText = 1;
-                            break;
+                           // break;
 
                         case 1:
                             score < 300 ? myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT) : myDisplay.displayZoneText(0, wonMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
                             currentText = 0;
-                            break;
+                            //break;
                         }
 
                         myDisplay.displayAnimate();
