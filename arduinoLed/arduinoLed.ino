@@ -2,27 +2,27 @@
 #include <MD_MAX72xx.h>
 #include <SPI.h>
 #include <EEPROM.h>
-#define CLK_PIN 13    // CLK or SCK
-#define DATA_PIN 11   // DIN or MOSI
-#define CS_PIN 10     // CS or SS
-#define CS_PIN2 9     // Pin connected to the CS pin of the second display
-#define MAX_DEVICES 4 // Number of connected 788AS modules per display
-int lastUpdate = 0;
+
+#define CLK_PIN 13  // CLK or SCK
+#define DATA_PIN 11 // DIN or MOSI
+#define CS_PIN 10   // CS or SS
+#define MAX_DEVICES 4
+#define CS_PIN2 9         // Pin connected to the CS pin of the second display
 #define PIR_SENSOR1_PIN 3 // Pin for PIR motion sensor 1
 #define PIR_SENSOR2_PIN 4 // Pin for PIR motion sensor 2
 
 #define RESTART_BUTTON_PIN 2 // Pin for reset button
 #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
 MD_Parola myDisplay = MD_Parola(MD_MAX72XX::FC16_HW, CS_PIN, MAX_DEVICES);
-MD_Parola myDisplay2 = MD_Parola(HARDWARE_TYPE, CS_PIN2, MAX_DEVICES);
 // Adjust the MAX_DEVICES value to match the number of connected 788AS modules
-
+MD_Parola myDisplay2 = MD_Parola(HARDWARE_TYPE, CS_PIN2, MAX_DEVICES);
 const uint8_t charWidth = 6;                  // Width of each character in pixels
 const uint8_t displayWidth = MAX_DEVICES * 8; // Total width of the display in pixels
 
 char message[] = "GO GO GO";
 char wonMessage[] = "BooM";
 char lossMessage[] = "Fail";
+char maxMessage[] = "55";
 uint16_t messageLength;
 int16_t textPosition = displayWidth;
 int score = 0;
@@ -37,7 +37,7 @@ unsigned long secondSensorTime = 0; // Time when second sensor detects movement
 unsigned long previousMillis = 0; // Variable to store the previous time
 unsigned long interval = 1500;    // Interval in milliseconds
 int currentText = 0;
-
+int maxScore = 0;
 void setup()
 {
     myDisplay.begin();
@@ -45,7 +45,7 @@ void setup()
     pinMode(PIR_SENSOR2_PIN, INPUT);
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
-
+    EEPROM.begin();
     myDisplay.setInvert(false);
     myDisplay.setIntensity(8); // Set the display intensity (0-15, lower value for dimmer display)
 
@@ -54,23 +54,20 @@ void setup()
     myDisplay.displayReset(); // Reset the display to prepare for new content
     myDisplay.displayZoneText(0, message, PA_LEFT, 35, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
     myDisplay.displayAnimate();
+    // Initialize the second display
     myDisplay2.begin();
-    myDisplay2.setIntensity(0); // Set the brightness of the second display (0-15)
-    myDisplay2.displayText("max val", PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
-    delay(3000);
-    EEPROM.begin();
-    char buffer[19];
-    score = EEPROM.read(0);
-    buffer[19] = '\0';
-
-    itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
-    myDisplay2.displayText(buffer, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
+    myDisplay2.setIntensity(15); // Set the brightness of the second display (0-15)
+    char buf[20];
+    maxScore = EEPROM.read(0);
+    // buf[19] = '\0';
+    itoa(maxScore, buf, 0);
+    myDisplay2.displayText(buf, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
+    // Update display animations for the first display
     myDisplay2.displayAnimate();
 }
 
 void loop()
-{ // Update display animations for the second display
-
+{
     if (myDisplay.displayAnimate())
     {
         // If the scrolling animation is complete, restart it
@@ -123,7 +120,12 @@ void loop()
         else
         {
             mappedScore = map(timeDifference, 0, 1000, 999, 1);
-            Serial.println(mappedScore);
+            if (mappedScore > EEPROM.read(0))
+            {
+                EEPROM.update(0, mappedScore);
+                maxScore = mappedScore;
+                sprintf(maxMessage, "%d", maxScore);
+            }
         }
 
         if (mappedScore > 999)
@@ -139,7 +141,6 @@ void loop()
                 rebootArduino();
             }
             score++;
-
             sprintf(message, "%d", score);
             myDisplay.displayReset();
             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
@@ -160,7 +161,7 @@ void loop()
             {
                 delay(30);
             }
-            if (score >= mappedScore - 1 || score >= mappedScore)
+            if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
                 while (true)
@@ -182,34 +183,19 @@ void loop()
                         switch (currentText)
                         {
                         case 0:
-
                             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                            char buffer[20]; // Make sure buffer is large enough to hold the converted string
-                            char high[10] = "high: ";
-                            buffer[19] = '\0';
-
-                            itoa(score, buffer, 0); // 10 specifies base 10 (decimal)
-                
-                            if (score > lastUpdate)
-                            {
-                                lastUpdate = score;
-                                EEPROM.update(0, score);
-                                // Concatenate high and buffer
-                                strcat(high, message);
-                                myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                                myDisplay2.displayAnimate();
-                            }
+                            myDisplay2.displayZoneText(0, maxMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                            myDisplay2.displayAnimate();
                             currentText = 1;
-                           // break;
+                            break;
 
                         case 1:
                             score < 300 ? myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT) : myDisplay.displayZoneText(0, wonMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
                             currentText = 0;
-                            //break;
+                            break;
                         }
 
                         myDisplay.displayAnimate();
-                        // myDisplay2.displayAnimate();
                     }
                 }
             }
