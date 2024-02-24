@@ -61,14 +61,16 @@ void setup()
     maxScore = EEPROM.read(0);
     // buf[19] = '\0';
     itoa(maxScore, maxMessage, 0);
-    myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
+    sprintf(maxMessage, "%ld", maxScore);
+    myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
+
     // Update display animations for the first display
     myDisplay2.displayAnimate();
 }
 
 void loop()
 {
-    myDisplay2.displayZoneText(0, maxMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+    myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
     if (myDisplay.displayAnimate())
     {
@@ -128,13 +130,15 @@ void loop()
                 maxScore = mappedScore;
                 sprintf(maxMessage, "%d", maxScore);
                 myDisplay2.displayReset();
-                myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
                 myDisplay2.displayAnimate();
             }
             else
             {
                 myDisplay2.displayReset();
-                myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                maxScore = mappedScore;
+                sprintf(maxMessage, "%d", maxScore);
+                myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
                 myDisplay2.displayAnimate();
             }
         }
