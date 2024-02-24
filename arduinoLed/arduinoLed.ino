@@ -56,7 +56,7 @@ void setup()
     myDisplay.displayAnimate();
     // Initialize the second display
     myDisplay2.begin();
-    myDisplay2.setIntensity(15); // Set the brightness of the second display (0-15)
+    myDisplay2.setIntensity(8); // Set the brightness of the second display (0-15)
     // char buf[20];
     maxScore = EEPROM.read(0);
     // buf[19] = '\0';
