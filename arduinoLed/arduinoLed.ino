@@ -34,7 +34,7 @@ const uint8_t displayWidth = MAX_DEVICES * 8; // Total width of the display in p
 char message[] = "GO GO GO";
 char wonMessage[] = "BooM";
 char lossMessage[] = "Fail";
-char maxMessage[] = "";
+char maxMessage[100] = "";
 uint16_t messageLength;
 int16_t textPosition = displayWidth;
 int score = 0;
@@ -86,6 +86,7 @@ void setup()
 
 void loop()
 {
+    bool lossPlaying, wonPlaying = true;
     myDisplay.displayReset();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
@@ -102,6 +103,7 @@ void loop()
     {
         firstSensorTime = millis(); // Record the time when first sensor detects movement
         Serial.println("First sensor detected movement");
+        myDFPlayer.stop(); // stop playing
     }
 
     // Check if the second sensor detects movement
@@ -209,12 +211,20 @@ void loop()
                         case 1:
                             if (score < 300)
                             {
-                                myDFPlayer.play(2);
+                                if (lossPlaying)
+                                {
+                                    myDFPlayer.play(2);
+                                    lossPlaying = false;
+                                }
                                 myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
                             }
                             else
                             {
-                                myDFPlayer.play(3);
+                                if (wonPlaying)
+                                {
+                                    myDFPlayer.play(3);
+                                    wonPlaying = false;
+                                }
                                 myDisplay.displayZoneText(0, wonMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
                             }
                             currentText = 0;
