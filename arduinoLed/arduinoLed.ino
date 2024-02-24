@@ -70,6 +70,7 @@ void setup()
 
 void loop()
 {
+    myDisplay.displayReset();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
     if (myDisplay.displayAnimate())
@@ -124,23 +125,7 @@ void loop()
         else
         {
             mappedScore = map(timeDifference, 0, 1000, 999, 1);
-            if (mappedScore > EEPROM.read(0))
-            {
-                EEPROM.update(0, mappedScore);
-                maxScore = mappedScore;
-                sprintf(maxMessage, "%d", maxScore);
-                myDisplay2.displayReset();
-                myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
-                myDisplay2.displayAnimate();
-            }
-            else
-            {
-                myDisplay2.displayReset();
-                maxScore = mappedScore;
-                sprintf(maxMessage, "%d", maxScore);
-                myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
-                myDisplay2.displayAnimate();
-            }
+            checkscore(mappedScore);
         }
 
         if (mappedScore > 999)
@@ -160,6 +145,7 @@ void loop()
             myDisplay.displayReset();
             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
             myDisplay.displayAnimate();
+             checkscore(score);
             if ((score + 30) >= mappedScore)
             {
                 delay(100);
@@ -199,6 +185,7 @@ void loop()
                         {
                         case 0:
                             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                             checkscore(mappedScore);
 
                             currentText = 1;
                             break;
@@ -216,7 +203,26 @@ void loop()
         }
     }
 }
-
+void checkscore(int mappedScore)
+{
+    if (mappedScore > EEPROM.read(0))
+    {
+        EEPROM.update(0, mappedScore);
+        maxScore = mappedScore;
+        sprintf(maxMessage, "%d", maxScore);
+        myDisplay2.displayReset();
+        myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
+        myDisplay2.displayAnimate();
+    }
+    else
+    {
+        myDisplay2.displayReset();
+        maxScore = mappedScore;
+        sprintf(maxMessage, "%d", maxScore);
+        myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
+        myDisplay2.displayAnimate();
+    }
+}
 void rebootArduino()
 {
     asm volatile("jmp 0"); // Perform a software reset by jumping to address 0
