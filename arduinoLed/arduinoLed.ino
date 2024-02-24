@@ -305,4 +305,5 @@ void mp3setup()
 void rebootArduino()
 {
     asm volatile("jmp 0"); // Perform a software reset by jumping to address 0
+    Serial.println("reboot button pressed");
 }
