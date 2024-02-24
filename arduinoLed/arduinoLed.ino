@@ -57,7 +57,7 @@ void setup()
     // Initialize the second display
     myDisplay2.begin();
     myDisplay2.setIntensity(15); // Set the brightness of the second display (0-15)
-    //char buf[20];
+    // char buf[20];
     maxScore = EEPROM.read(0);
     // buf[19] = '\0';
     itoa(maxScore, maxMessage, 0);
@@ -128,6 +128,14 @@ void loop()
                 maxScore = mappedScore;
                 sprintf(maxMessage, "%d", maxScore);
                 myDisplay2.displayReset();
+                myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                myDisplay2.displayAnimate();
+            }
+            else
+            {
+                myDisplay2.displayReset();
+                myDisplay2.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+                myDisplay2.displayAnimate();
             }
         }
 
