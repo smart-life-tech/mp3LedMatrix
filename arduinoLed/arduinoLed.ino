@@ -311,6 +311,8 @@ void mp3setup()
     //  myDFPlayer.disableDAC();  //Disable On-chip DAC
     //  myDFPlayer.outputSetting(true, 15); //output setting, enable the output and set the gain to 15
     myDFPlayer.play(1); // Play the first mp3
+    delay(5000);
+    myDFPlayer.stop(); // Play the first mp3
 }
 void rebootArduino()
 {
