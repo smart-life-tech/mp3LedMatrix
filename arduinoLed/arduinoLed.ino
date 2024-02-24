@@ -57,17 +57,19 @@ void setup()
     // Initialize the second display
     myDisplay2.begin();
     myDisplay2.setIntensity(15); // Set the brightness of the second display (0-15)
-    char buf[20];
+    //char buf[20];
     maxScore = EEPROM.read(0);
     // buf[19] = '\0';
-    itoa(maxScore, buf, 0);
-    myDisplay2.displayText(buf, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
+    itoa(maxScore, maxMessage, 0);
+    myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_SCROLL_LEFT);
     // Update display animations for the first display
     myDisplay2.displayAnimate();
 }
 
 void loop()
 {
+    myDisplay2.displayZoneText(0, maxMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
+    myDisplay2.displayAnimate();
     if (myDisplay.displayAnimate())
     {
         // If the scrolling animation is complete, restart it
@@ -125,6 +127,7 @@ void loop()
                 EEPROM.update(0, mappedScore);
                 maxScore = mappedScore;
                 sprintf(maxMessage, "%d", maxScore);
+                myDisplay2.displayReset();
             }
         }
 
@@ -184,8 +187,7 @@ void loop()
                         {
                         case 0:
                             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                            myDisplay2.displayZoneText(0, maxMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
-                            myDisplay2.displayAnimate();
+
                             currentText = 1;
                             break;
 
