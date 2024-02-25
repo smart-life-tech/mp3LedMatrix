@@ -86,7 +86,8 @@ void setup()
 
 void loop()
 {
-    bool lossPlaying, wonPlaying = true;
+    bool lossPlaying = true;
+    bool wonPlaying = true;
     myDisplay.displayReset();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
@@ -213,8 +214,8 @@ void loop()
                             {
                                 if (lossPlaying)
                                 {
-                                   // myDFPlayer.play(0);
-                                     myDFPlayer.play(3);
+                                    // myDFPlayer.play(0);
+                                    myDFPlayer.play(3);
                                     lossPlaying = false;
                                 }
                                 myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
