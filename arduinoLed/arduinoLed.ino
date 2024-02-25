@@ -71,7 +71,7 @@ void setup()
     myDisplay2.begin();
     myDisplay2.setIntensity(8); // Set the brightness of the second display (0-15)
     // char buf[20];
-    maxScore = EEPROM.read(0);
+    maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
     myDisplay2.displayClear();
@@ -88,7 +88,7 @@ void loop()
 {
     bool lossPlaying = true;
     bool wonPlaying = true;
-    //myDisplay.displayReset();
+    // myDisplay.displayReset();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
     if (myDisplay.displayAnimate())
@@ -242,9 +242,9 @@ void loop()
 }
 void checkscore(int mappedScore)
 {
-    if (mappedScore > EEPROM.read(0))
+    if (mappedScore > read())
     {
-        EEPROM.update(0, mappedScore);
+        write( mappedScore);
         maxScore = mappedScore;
         sprintf(maxMessage, "%d", maxScore);
         myDisplay2.displayReset();
@@ -320,4 +320,18 @@ void rebootArduino()
 {
     asm volatile("jmp 0"); // Perform a software reset by jumping to address 0
     Serial.println("reboot button pressed");
+}
+
+void write(int number)
+{
+    EEPROM.write(0, number / 100);
+    EEPROM.write(1, (number / 10) % 10);
+    EEPROM.write(2, number % 10);
+}
+int read()
+{
+    int h = EEPROM.read(0);
+    int t = EEPROM.read(1);
+    int u = EEPROM.read(2);
+    return h * 100 + t * 10 + u;
 }
