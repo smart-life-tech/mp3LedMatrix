@@ -73,7 +73,7 @@ void setup()
     // char buf[20];
     maxScore = EEPROM.read(0);
     // buf[19] = '\0';
-    sprintf(maxMessage, "%ld", maxScore);
+    sprintf(maxMessage, "%d", maxScore);
     myDisplay2.displayClear();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
 
@@ -88,7 +88,7 @@ void loop()
 {
     bool lossPlaying = true;
     bool wonPlaying = true;
-    myDisplay.displayReset();
+    //myDisplay.displayReset();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
     if (myDisplay.displayAnimate())
