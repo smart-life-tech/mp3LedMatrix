@@ -213,7 +213,8 @@ void loop()
                             {
                                 if (lossPlaying)
                                 {
-                                    myDFPlayer.play(0);
+                                   // myDFPlayer.play(0);
+                                     myDFPlayer.play(3);
                                     lossPlaying = false;
                                 }
                                 myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
