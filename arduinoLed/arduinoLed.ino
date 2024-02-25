@@ -73,8 +73,8 @@ void setup()
     // char buf[20];
     maxScore = EEPROM.read(0);
     // buf[19] = '\0';
-    itoa(maxScore, maxMessage, 0);
     sprintf(maxMessage, "%ld", maxScore);
+    myDisplay2.displayClear();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
 
     // Update display animations for the first display
@@ -213,7 +213,7 @@ void loop()
                             {
                                 if (lossPlaying)
                                 {
-                                    myDFPlayer.play(2);
+                                    myDFPlayer.play(0);
                                     lossPlaying = false;
                                 }
                                 myDisplay.displayZoneText(0, lossMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
@@ -222,7 +222,7 @@ void loop()
                             {
                                 if (wonPlaying)
                                 {
-                                    myDFPlayer.play(3);
+                                    myDFPlayer.play(2);
                                     wonPlaying = false;
                                 }
                                 myDisplay.displayZoneText(0, wonMessage, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
@@ -311,8 +311,8 @@ void mp3setup()
     //  myDFPlayer.disableDAC();  //Disable On-chip DAC
     //  myDFPlayer.outputSetting(true, 15); //output setting, enable the output and set the gain to 15
     myDFPlayer.play(1); // Play the first mp3
-    delay(5000);
-    myDFPlayer.stop(); // Play the first mp3
+                        // delay(5000);
+                        // myDFPlayer.stop(); // Play the first mp3
 }
 void rebootArduino()
 {
