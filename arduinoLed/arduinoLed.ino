@@ -71,6 +71,7 @@ void setup()
     myDisplay2.begin();
     myDisplay2.setIntensity(8); // Set the brightness of the second display (0-15)
     // char buf[20];
+    write(0);
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
