@@ -146,7 +146,7 @@ void loop()
         else
         {
             mappedScore = map(timeDifference, 0, 1000, 999, 1);
-            checkscore(mappedScore);
+            //checkscore(mappedScore);
         }
 
         if (mappedScore > 999)
