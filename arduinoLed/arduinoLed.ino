@@ -104,7 +104,7 @@ void loop()
     {
         firstSensorTime = millis(); // Record the time when first sensor detects movement
         Serial.println("First sensor detected movement");
-        myDFPlayer.stop(); // stop playing
+       // myDFPlayer.stop(); // stop playing
     }
 
     // Check if the second sensor detects movement
