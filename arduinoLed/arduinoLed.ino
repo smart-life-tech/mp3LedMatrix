@@ -82,6 +82,7 @@ void setup()
     Serial.println("code started");
     Serial.println(maxMessage);
     mp3setup();
+    write(0);
 }
 
 void loop()
@@ -104,7 +105,7 @@ void loop()
     {
         firstSensorTime = millis(); // Record the time when first sensor detects movement
         Serial.println("First sensor detected movement");
-       // myDFPlayer.stop(); // stop playing
+        // myDFPlayer.stop(); // stop playing
     }
 
     // Check if the second sensor detects movement
@@ -244,7 +245,7 @@ void checkscore(int mappedScore)
 {
     if (mappedScore > read())
     {
-        write( mappedScore);
+        write(mappedScore);
         maxScore = mappedScore;
         sprintf(maxMessage, "%d", maxScore);
         myDisplay2.displayReset();
@@ -254,7 +255,7 @@ void checkscore(int mappedScore)
     else
     {
         myDisplay2.displayReset();
-        maxScore = mappedScore;
+        maxScore = read();
         sprintf(maxMessage, "%d", maxScore);
         myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
         myDisplay2.displayAnimate();
@@ -324,9 +325,18 @@ void rebootArduino()
 
 void write(int number)
 {
-    EEPROM.write(0, number / 100);
-    EEPROM.write(1, (number / 10) % 10);
-    EEPROM.write(2, number % 10);
+    if (number == 0)
+    {
+        EEPROM.write(0, 0);
+        EEPROM.write(1, 0);
+        EEPROM.write(2, 0);
+    }
+    else
+    {
+        EEPROM.write(0, number / 100);
+        EEPROM.write(1, (number / 10) % 10);
+        EEPROM.write(2, number % 10);
+    }
 }
 int read()
 {
