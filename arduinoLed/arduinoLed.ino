@@ -70,8 +70,12 @@ void setup()
     // Initialize the second display
     myDisplay2.begin();
     myDisplay2.setIntensity(8); // Set the brightness of the second display (0-15)
-    // char buf[20];
-    write(0);
+    if (read() >= 999)
+    {
+        Serial.println("score is greater than 999 formatting eeprom");
+        write(0);
+    }
+
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
@@ -83,7 +87,6 @@ void setup()
     Serial.println("code started");
     Serial.println(maxMessage);
     mp3setup();
-    write(0);
 }
 
 void loop()
@@ -146,7 +149,7 @@ void loop()
         else
         {
             mappedScore = map(timeDifference, 0, 1000, 999, 1);
-            //checkscore(mappedScore);
+            // checkscore(mappedScore);
         }
 
         if (mappedScore > 999)
@@ -166,7 +169,7 @@ void loop()
             myDisplay.displayReset();
             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
             myDisplay.displayAnimate();
-            checkscore(score);
+
             if ((score + 30) >= mappedScore)
             {
                 delay(100);
@@ -183,6 +186,7 @@ void loop()
             {
                 delay(30);
             }
+            //checkscore(score);
             if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
