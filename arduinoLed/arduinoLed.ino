@@ -70,10 +70,11 @@ void setup()
     // Initialize the second display
     myDisplay2.begin();
     myDisplay2.setIntensity(8); // Set the brightness of the second display (0-15)
+    Serial.println(read());
     if (read() >= 999)
     {
         Serial.println("score is greater than 999 formatting eeprom");
-        write(0);
+      //  write(0);
     }
 
     maxScore = read();
@@ -186,7 +187,7 @@ void loop()
             {
                 delay(30);
             }
-            //checkscore(score);
+            // checkscore(score);
             if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
