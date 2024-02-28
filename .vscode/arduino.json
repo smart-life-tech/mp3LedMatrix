@@ -1,4 +1,4 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "ws2812\\ws2812.ino"
+    "sketch": "arduinoLed\\arduinoLed.ino"
 }
