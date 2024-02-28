@@ -4,6 +4,15 @@
 #include <EEPROM.h>
 #include "Arduino.h"
 #include "DFRobotDFPlayerMini.h"
+#include <FastLED.h>
+
+#define LED_PIN 7
+#define NUM_LEDS 10
+#define LED_TYPE WS2812
+#define COLOR_ORDER GRB
+
+CRGB leds[NUM_LEDS];
+
 #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266)) // Using a soft serial port
 #include <SoftwareSerial.h>
 SoftwareSerial softSerial(/*rx =*/5, /*tx =*/6);
@@ -71,10 +80,11 @@ void setup()
     myDisplay2.begin();
     myDisplay2.setIntensity(8); // Set the brightness of the second display (0-15)
     Serial.println(read());
+    FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
     if (read() >= 999)
     {
         Serial.println("score is greater than 999 formatting eeprom");
-      //  write(0);
+        //  write(0);
     }
 
     maxScore = read();
@@ -87,6 +97,7 @@ void setup()
     myDisplay2.displayAnimate();
     Serial.println("code started");
     Serial.println(maxMessage);
+    colorWipe(CRGB::Black, 50); // Off
     mp3setup();
 }
 
@@ -166,6 +177,8 @@ void loop()
                 rebootArduino();
             }
             score++;
+            int bar = map(score, 0, 999, 0, NUM_LEDS);
+            colorWipe(CRGB::Red, 60, bar);
             sprintf(message, "%d", score);
             myDisplay.displayReset();
             myDisplay.displayZoneText(0, message, PA_CENTER, 35, 0, PA_PRINT, PA_PRINT);
@@ -350,4 +363,12 @@ int read()
     int t = EEPROM.read(1);
     int u = EEPROM.read(2);
     return h * 100 + t * 10 + u;
+}
+void colorWipe(CRGB color, int wait, int leds)
+{
+    for (int i = 0; i < leds; i++)
+    {
+        leds[i] = color;
+        FastLED.show();
+    }
 }
