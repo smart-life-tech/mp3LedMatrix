@@ -97,7 +97,7 @@ void setup()
     myDisplay2.displayAnimate();
     Serial.println("code started");
     Serial.println(maxMessage);
-    colorWipe(CRGB::Black, 50); // Off
+    colorWipe(CRGB::Black, 50,NUM_LEDS); // Off
     mp3setup();
 }
 
@@ -364,9 +364,9 @@ int read()
     int u = EEPROM.read(2);
     return h * 100 + t * 10 + u;
 }
-void colorWipe(CRGB color, int wait, int leds)
+void colorWipe(CRGB color, int wait, int ledss)
 {
-    for (int i = 0; i < leds; i++)
+    for (int i = 0; i < ledss; i++)
     {
         leds[i] = color;
         FastLED.show();
