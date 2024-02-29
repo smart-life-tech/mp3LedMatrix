@@ -7,7 +7,7 @@
 #include <FastLED.h>
 #include <Tone.h>
 Tone buzzerr;
-#define buzzer 8
+#define buzzer 3
 #define LED_PIN 7
 #define NUM_LEDS 10
 #define LED_TYPE WS2812
@@ -31,7 +31,7 @@ void printDetail(uint8_t type, int value);
 #define CS_PIN 10   // CS or SS
 #define MAX_DEVICES 4
 #define CS_PIN2 9         // Pin connected to the CS pin of the second display
-#define PIR_SENSOR1_PIN 3 // Pin for PIR motion sensor 1
+#define PIR_SENSOR1_PIN 8 // Pin for PIR motion sensor 1
 #define PIR_SENSOR2_PIN 4 // Pin for PIR motion sensor 2
 
 #define RESTART_BUTTON_PIN 2 // Pin for reset button
