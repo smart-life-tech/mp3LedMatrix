@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "DFRobotDFPlayerMini.h"
 #include <FastLED.h>
-
+#define buzzer 8
 #define LED_PIN 7
 #define NUM_LEDS 10
 #define LED_TYPE WS2812
@@ -67,6 +67,7 @@ void setup()
     pinMode(PIR_SENSOR2_PIN, INPUT);
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
+    pinMode(buzzer, OUTPUT);
     EEPROM.begin();
     myDisplay.setInvert(false);
     myDisplay.setIntensity(8); // Set the display intensity (0-15, lower value for dimmer display)
@@ -97,7 +98,7 @@ void setup()
     myDisplay2.displayAnimate();
     Serial.println("code started");
     Serial.println(maxMessage);
-    colorWipe(CRGB::Black, 50,NUM_LEDS); // Off
+    colorWipe(CRGB::Black, 50, NUM_LEDS); // Off
     mp3setup();
 }
 
@@ -105,6 +106,7 @@ void loop()
 {
     bool lossPlaying = true;
     bool wonPlaying = true;
+    bool playing = true;
     // myDisplay.displayReset();
     myDisplay2.displayText(maxMessage, PA_CENTER, 1000, 0, PA_PRINT);
     myDisplay2.displayAnimate();
@@ -121,6 +123,11 @@ void loop()
     {
         firstSensorTime = millis(); // Record the time when first sensor detects movement
         Serial.println("First sensor detected movement");
+        if (playing)
+        {
+            myDFPlayer.loop(4);
+            playing = false;
+        }
         // myDFPlayer.stop(); // stop playing
     }
 
@@ -177,6 +184,7 @@ void loop()
                 rebootArduino();
             }
             score++;
+            buzzerFunc();
             int bar = map(score, 0, 999, 0, NUM_LEDS);
             colorWipe(CRGB::Red, 60, bar);
             sprintf(message, "%d", score);
@@ -371,4 +379,11 @@ void colorWipe(CRGB color, int wait, int ledss)
         leds[i] = color;
         FastLED.show();
     }
+}
+void buzzerFunc()
+{
+    digitalWrite(buzzer, HIGH);
+    delay(200);
+    digitalWrite(buzzer, LOW);
+    delay(200);
 }
