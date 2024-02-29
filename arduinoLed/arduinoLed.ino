@@ -5,6 +5,8 @@
 #include "Arduino.h"
 #include "DFRobotDFPlayerMini.h"
 #include <FastLED.h>
+#include <Tone.h>
+Tone buzzerr;
 #define buzzer 8
 #define LED_PIN 7
 #define NUM_LEDS 10
@@ -68,6 +70,7 @@ void setup()
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
     pinMode(buzzer, OUTPUT);
+    buzzerr.begin(buzzer);
     buzzerFunc(HIGH);
     EEPROM.begin();
     myDisplay.setInvert(false);
@@ -210,7 +213,7 @@ void loop()
                 delay(30);
             }
             // checkscore(score);
-            buzzerFunc(LOW);
+           /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
@@ -385,4 +388,6 @@ void colorWipe(CRGB color, int wait, int ledss)
 void buzzerFunc(bool status)
 {
     digitalWrite(buzzer, status);
+    // Play a sound when counting the score
+    buzzerr.play(1000, 50);
 }
