@@ -184,7 +184,7 @@ void loop()
                 rebootArduino();
             }
             score++;
-            buzzerFunc();
+            buzzerFunc(HIGH);
             int bar = map(score, 0, 999, 0, NUM_LEDS);
             colorWipe(CRGB::Red, 60, bar);
             sprintf(message, "%d", score);
@@ -209,6 +209,7 @@ void loop()
                 delay(30);
             }
             // checkscore(score);
+            buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
@@ -380,10 +381,7 @@ void colorWipe(CRGB color, int wait, int ledss)
         FastLED.show();
     }
 }
-void buzzerFunc()
+void buzzerFunc(bool status)
 {
-    digitalWrite(buzzer, HIGH);
-    delay(200);
-    digitalWrite(buzzer, LOW);
-    delay(200);
+    digitalWrite(buzzer, status);
 }
