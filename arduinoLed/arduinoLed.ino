@@ -6,7 +6,7 @@
 #include "DFRobotDFPlayerMini.h"
 #include <FastLED.h>
 #include <Tone.h>
-Tone buzzerr;
+Tone buzzerr;//buxxer on pin 3
 #define buzzer 3
 #define LED_PIN 7
 #define NUM_LEDS 10
