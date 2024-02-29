@@ -68,6 +68,7 @@ void setup()
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
     pinMode(buzzer, OUTPUT);
+    buzzerFunc(HIGH);
     EEPROM.begin();
     myDisplay.setInvert(false);
     myDisplay.setIntensity(8); // Set the display intensity (0-15, lower value for dimmer display)
