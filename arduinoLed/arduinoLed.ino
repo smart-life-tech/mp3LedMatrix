@@ -6,7 +6,7 @@
 #include "DFRobotDFPlayerMini.h"
 #include <FastLED.h>
 #include <Tone.h>
-Tone buzzerr;//buxxer on pin 3
+Tone buzzerr; // buxxer on pin 3
 #define buzzer 3
 #define LED_PIN 7
 #define NUM_LEDS 10
@@ -171,7 +171,11 @@ void loop()
         }
         else
         {
+            Serial.print("time difference : ");
+            Serial.println(timeDifference);
             mappedScore = map(timeDifference, 0, 1000, 999, 1);
+            Serial.print("mapped score : ");
+            Serial.println(mappedScore);
             // checkscore(mappedScore);
         }
 
@@ -213,7 +217,7 @@ void loop()
                 delay(30);
             }
             // checkscore(score);
-           /// buzzerFunc(LOW);
+            /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
             {
                 sprintf(message, "%d", mappedScore);
