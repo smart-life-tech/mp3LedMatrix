@@ -173,7 +173,7 @@ void loop()
         {
             Serial.print("time difference : ");
             Serial.println(timeDifference);
-            mappedScore = map(timeDifference, 0, 1000, 999, 1);
+            mappedScore = map(timeDifference, 80, 1000, 999, 1);
             Serial.print("mapped score : ");
             Serial.println(mappedScore);
             // checkscore(mappedScore);
