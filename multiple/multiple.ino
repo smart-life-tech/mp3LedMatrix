@@ -8,8 +8,8 @@
 #include <LedMatrix.h>
 #endif
 
-const byte NUM_ROWS = 6;             // Number of 8x8 display rows
-const byte NUM_COLS = 8;             // Number of 8x8 display columns
+const byte NUM_ROWS = 5;             // Number of 8x8 display rows
+const byte NUM_COLS = 4;             // Number of 8x8 display columns
 const byte maxWidth = NUM_COLS * 8;  // Maximum display width
 const byte maxHeight = NUM_ROWS * 8; // Maximum display height
 const double rads = 0.0174532925;    // Used for clock demo
