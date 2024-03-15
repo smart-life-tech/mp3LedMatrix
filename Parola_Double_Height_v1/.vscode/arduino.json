@@ -1,0 +1,5 @@
+{
+    "sketch": "Parola_Double_Height_v1.ino",
+    "port": "COM1",
+    "board": "arduino:avr:uno"
+}
