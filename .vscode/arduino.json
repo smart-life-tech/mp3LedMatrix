@@ -1,4 +1,4 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "Parola_Double_Height_v1\\Parola_Double_Height_v1.ino"
+    "sketch": "ScrollingText\\ScrollingText.ino"
 }
