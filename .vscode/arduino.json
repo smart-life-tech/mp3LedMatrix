@@ -1,4 +1,4 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "arduinoLed\\arduinoLed.ino"
+    "sketch": "Parola_Double_Height_v1\\Parola_Double_Height_v1.ino"
 }
