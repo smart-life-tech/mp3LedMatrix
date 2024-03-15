@@ -1,8 +1,4 @@
-// Demonstrates one way to create a double height display using Parola.
-//
-// Largely based on code shared by arduino.cc forum user Arek00, 26 Sep 2015.
-// Video of running display can be seen at https://www.youtube.com/watch?v=7nPCIMVUo5g
-//
+
 // The upper and lower portions are managed as 2 zones 'stacked' on top of each other
 // so that the module numbers are in the sequence shown below:
 //
@@ -13,13 +9,7 @@
 // * Modules (like Generic and Parola) that cannot fit over each other with no gap
 //  n/2+1 ... n-2 n-1 n   -> this direction top row
 //  n/2 ... 3  2  1  0    <- this direction bottom row
-//
-// Each font displays letters for either top or bottom half of the message. Sending the
-// same string to both zones creates the complete message
-// on the display.
-//
-// MD_MAX72XX library can be found at https://github.com/MajicDesigns/MD_MAX72XX
-//
+
 
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
