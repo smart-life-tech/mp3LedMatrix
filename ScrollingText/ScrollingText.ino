@@ -23,7 +23,7 @@
 #endif
 
 // Defines the number of 8x8 display rows and columns
-const byte NUM_ROWS = 4;
+const byte NUM_ROWS = 2;
 const byte NUM_COLS = 4;
 
 /*
