@@ -69,7 +69,7 @@ void loop()
         lm.line(centerX, centerY, centerX + round(shLen * cos(sHand * rads)), centerY + round(shLen * sin(sHand * rads)));
         lm.line(centerX, centerY, centerX + round(mhLen * cos(mHand * rads)), centerY + round(mhLen * sin(mHand * rads)));
         lm.line(centerX, centerY, centerX + round(hhLen * cos(hHand * rads)), centerY + round(hhLen * sin(hHand * rads)));
-
+        lm.printWord("test", 10, 0, 0);
         lm.update(); // Update the display
         delay(975);  // Delay almost a second (leave time for program overhead)
         second++;    // Increment the seconds
