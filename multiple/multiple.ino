@@ -8,7 +8,7 @@
 #include <LedMatrix.h>
 #endif
 
-const byte NUM_ROWS = 5;             // Number of 8x8 display rows
+const byte NUM_ROWS = 4;             // Number of 8x8 display rows
 const byte NUM_COLS = 4;             // Number of 8x8 display columns
 const byte maxWidth = NUM_COLS * 8;  // Maximum display width
 const byte maxHeight = NUM_ROWS * 8; // Maximum display height
@@ -69,7 +69,7 @@ void loop()
         lm.line(centerX, centerY, centerX + round(shLen * cos(sHand * rads)), centerY + round(shLen * sin(sHand * rads)));
         lm.line(centerX, centerY, centerX + round(mhLen * cos(mHand * rads)), centerY + round(mhLen * sin(mHand * rads)));
         lm.line(centerX, centerY, centerX + round(hhLen * cos(hHand * rads)), centerY + round(hhLen * sin(hHand * rads)));
-
+        lm.printWord("test", 10, 0, 0);
         lm.update(); // Update the display
         delay(975);  // Delay almost a second (leave time for program overhead)
         second++;    // Increment the seconds
