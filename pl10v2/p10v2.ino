@@ -23,6 +23,21 @@ void setup(void)
     Timer1.attachInterrupt(ScanDMD);
     dmd.clearScreen(true);
     Serial.begin(115200);
+
+    delay(1000);
+
+    // display some text
+    dmd.clearScreen(true);
+    dmd.selectFont(System5x7);
+    for (byte x = 0; x < DISPLAYS_ACROSS; x++)
+    {
+        for (byte y = 0; y < DISPLAYS_DOWN; y++)
+        {
+            dmd.drawString(2 + (32 * x), 1 + (16 * y), "freet", 5, GRAPHICS_NORMAL);
+            dmd.drawString(2 + (32 * x), 9 + (16 * y), "ronic", 5, GRAPHICS_NORMAL);
+        }
+    }
+    delay(5000);
 }
 
 void loop(void)

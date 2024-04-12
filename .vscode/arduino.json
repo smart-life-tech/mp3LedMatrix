@@ -1,4 +1,4 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "p10\\p10.ino"
+    "sketch": "pl10v2\\p10v2.ino"
 }
