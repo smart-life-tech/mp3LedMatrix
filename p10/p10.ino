@@ -20,7 +20,7 @@ char *Text = "";
 
 Tone buzzerr; // buxxer on pin 3
 #define buzzer 3
-#define LED_PIN 7
+#define LED_PIN 12
 #define NUM_LEDS 10
 #define LED_TYPE WS2812
 #define COLOR_ORDER GRB
@@ -29,7 +29,7 @@ CRGB leds[NUM_LEDS];
 
 #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266)) // Using a soft serial port
 #include <SoftwareSerial.h>
-SoftwareSerial softSerial(/*rx =*/5, /*tx =*/6);
+SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
 #define FPSerial softSerial
 #else
 #define FPSerial Serial1
@@ -38,15 +38,10 @@ SoftwareSerial softSerial(/*rx =*/5, /*tx =*/6);
 DFRobotDFPlayerMini myDFPlayer;
 void printDetail(uint8_t type, int value);
 
-#define CLK_PIN 13  // CLK or SCK
-#define DATA_PIN 11 // DIN or MOSI
-#define CS_PIN 10   // CS or SS
-#define MAX_DEVICES 4
-#define CS_PIN2 9         // Pin connected to the CS pin of the second display
-#define PIR_SENSOR1_PIN 8 // Pin for PIR motion sensor 1
-#define PIR_SENSOR2_PIN 4 // Pin for PIR motion sensor 2
+#define PIR_SENSOR1_PIN A0 // Pin for PIR motion sensor 1
+#define PIR_SENSOR2_PIN A1 // Pin for PIR motion sensor 2
 
-#define RESTART_BUTTON_PIN 2 // Pin for reset button
+#define RESTART_BUTTON_PIN A2 // Pin for reset button
 
 char message[] = "GO GO GO";
 char wonMessage[] = "BooM";
