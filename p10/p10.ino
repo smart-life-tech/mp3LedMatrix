@@ -76,8 +76,8 @@ void setup()
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
     pinMode(buzzer, OUTPUT);
-    // buzzerr.begin(buzzer);
-    // buzzerFunc(HIGH);
+     buzzerr.begin(buzzer);
+    buzzerFunc(HIGH);
     EEPROM.begin();
     Timer1.initialize(1000);
     Timer1.attachInterrupt(ScanDMD);
