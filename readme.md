@@ -1,4 +1,5 @@
 
+```cpp
 #define buzzer 3
 SoftwareSerial softSerial(/*rx =*4, /*tx =*/5);
 #define PIN_DMD_A         6    // D6
@@ -14,4 +15,4 @@ SoftwareSerial softSerial(/*rx =*4, /*tx =*/5);
 #define PIR_SENSOR1_PIN A0 // Pin for PIR motion sensor 1
 #define PIR_SENSOR2_PIN A1 // Pin for PIR motion sensor 2
 #define RESTART_BUTTON_PIN A2 // Pin for reset button
-
+```
