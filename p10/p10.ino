@@ -70,6 +70,7 @@ void setup()
 {
     Serial.begin(115200);
     Serial.println("code started");
+    mp3setup();
     pinMode(PIR_SENSOR1_PIN, INPUT);
     pinMode(PIR_SENSOR2_PIN, INPUT);
 
@@ -88,6 +89,7 @@ void setup()
     dmd.drawString(3, 0, "lets play", 3, GRAPHICS_NORMAL);
     dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println(read());
+
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
     if (read() >= 999)
     {
@@ -98,8 +100,9 @@ void setup()
     Serial.println("code started");
     Serial.println(maxMessage);
     colorWipe(CRGB::Black, 50, NUM_LEDS); // Off
-    mp3setup();
+
     delay(4000);
+    Serial.println("code started finished final set up");
 }
 
 void loop()
