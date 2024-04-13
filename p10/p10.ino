@@ -69,14 +69,14 @@ void ScanDMD()
 void setup()
 {
     Serial.begin(9600);
-
+    Serial.println("code started");
     pinMode(PIR_SENSOR1_PIN, INPUT);
     pinMode(PIR_SENSOR2_PIN, INPUT);
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
     pinMode(buzzer, OUTPUT);
-    buzzerr.begin(buzzer);
-    buzzerFunc(HIGH);
+   // buzzerr.begin(buzzer);
+   // buzzerFunc(HIGH);
     EEPROM.begin();
     Timer1.initialize(1000);
     Timer1.attachInterrupt(ScanDMD);
