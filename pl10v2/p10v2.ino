@@ -6,8 +6,9 @@
 #include "Arial14.h"
 #include "SystemFont5x7.h"
 
-#define DISPLAYS_ACROSS 2 //-> Number of P10 panels used, side to side.
-#define DISPLAYS_DOWN 1
+#define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
+
+#define DISPLAYS_DOWN 2
 DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
 
 char *Text = "";
@@ -23,55 +24,14 @@ void setup(void)
     Timer1.attachInterrupt(ScanDMD);
     dmd.clearScreen(true);
     Serial.begin(115200);
-
-    delay(1000);
-
-    // display some text
-    dmd.clearScreen(true);
-    dmd.selectFont(System5x7);
-    for (byte x = 0; x < DISPLAYS_ACROSS; x++)
-    {
-        for (byte y = 0; y < DISPLAYS_DOWN; y++)
-        {
-            dmd.drawString(2 + (32 * x), 1 + (16 * y), "freet", 5, GRAPHICS_NORMAL);
-            dmd.drawString(2 + (32 * x), 9 + (16 * y), "ronic", 5, GRAPHICS_NORMAL);
-        }
-    }
-    delay(5000);
 }
 
 void loop(void)
 {
-    dmd.selectFont(Arial_Black_16_ISO_8859_1);
-    // dmd.selectFont(Arial_Black_16);
-    // dmd.selectFont(Arial_14);
-    // dmd.selectFont(SystemFont5x7);
+    dmd.selectFont(SystemFont5x7);
+    //DMD.selectFont(Arial_Black_16);
 
-    //-----------------------------------------------------------By using "millis()"
-    Text = "Uteh Str Channel Don't Forget to Subscribe on YouTube";
-    dmd.drawMarquee(Text, strlen(Text), (32 * DISPLAYS_ACROSS) - 1, 0);
-    long start = millis();
-    long timer = start;
-    boolean ret = false;
-    int interval = 100;
-    while (!ret)
-    {
-        if ((timer + interval) < millis())
-        {
-            ret = dmd.stepMarquee(-1, 0);
-            timer = millis();
-            Serial.println(ret);
-        }
-    }
-
-    //-----------------------------------------------------------By using "delay()"
-    /*
-    Text = "Uteh Str Channel Don't Forget to Subscribe on YouTube";
-    dmd.drawMarquee(Text,strlen(Text),(32*DISPLAYS_ACROSS)-1,0);
-    boolean ret=false;
-    while(!ret){
-      ret=dmd.stepMarquee(-1,0);
-      delay(100);
-    }
-    */
+    dmd.drawString(3, 0, "989", 3, GRAPHICS_NORMAL);
+    dmd.drawString(3, 18, "752", 3, GRAPHICS_NORMAL);
+    delay(1000);
 }
