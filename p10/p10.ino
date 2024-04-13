@@ -19,8 +19,8 @@ DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
 char *Text = "";
 
 Tone buzzerr; // buxxer on pin 3
-#define buzzer 3
-#define LED_PIN 12
+#define buzzer A3
+#define LED_PIN A4
 #define NUM_LEDS 10
 #define LED_TYPE WS2812
 #define COLOR_ORDER GRB
@@ -29,7 +29,7 @@ CRGB leds[NUM_LEDS];
 
 #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266)) // Using a soft serial port
 #include <SoftwareSerial.h>
-SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
+SoftwareSerial softSerial(/*rx =*/3, /*tx =*/2);
 #define FPSerial softSerial
 #else
 #define FPSerial Serial1
@@ -68,20 +68,25 @@ void ScanDMD()
 }
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200);
     Serial.println("code started");
     pinMode(PIR_SENSOR1_PIN, INPUT);
     pinMode(PIR_SENSOR2_PIN, INPUT);
 
     pinMode(RESTART_BUTTON_PIN, INPUT_PULLUP);
     pinMode(buzzer, OUTPUT);
-   // buzzerr.begin(buzzer);
-   // buzzerFunc(HIGH);
+    // buzzerr.begin(buzzer);
+    // buzzerFunc(HIGH);
     EEPROM.begin();
     Timer1.initialize(1000);
     Timer1.attachInterrupt(ScanDMD);
     dmd.clearScreen(true);
-    Serial.begin(115200);
+    dmd.selectFont(SystemFont5x7);
+    maxScore = read();
+    // buf[19] = '\0';
+    sprintf(maxMessage, "%d", maxScore);
+    dmd.drawString(3, 0, "lets play", 3, GRAPHICS_NORMAL);
+    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println(read());
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
     if (read() >= 999)
@@ -89,17 +94,12 @@ void setup()
         Serial.println("score is greater than 999 formatting eeprom");
         //  write(0);
     }
-    dmd.selectFont(SystemFont5x7);
-    maxScore = read();
-    // buf[19] = '\0';
-    sprintf(maxMessage, "%d", maxScore);
-    dmd.drawString(3, 0, "lets play", 3, GRAPHICS_NORMAL);
-    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+
     Serial.println("code started");
     Serial.println(maxMessage);
     colorWipe(CRGB::Black, 50, NUM_LEDS); // Off
     mp3setup();
-    delay(1000);
+    delay(4000);
 }
 
 void loop()
