@@ -93,7 +93,7 @@ void setup()
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
-    // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
+    dmd.drawString(3, 0, "lets play", 3, GRAPHICS_NORMAL);
     dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println("code started");
     Serial.println(maxMessage);
