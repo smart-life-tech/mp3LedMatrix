@@ -202,7 +202,7 @@ void loop()
             int bar = map(score, 0, 999, 0, NUM_LEDS);
             colorWipe(CRGB::Red, 60, bar);
             sprintf(message, "%d", score);
-            dmd.clearScreen(true);
+            //dmd.clearScreen(true);
             dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
 
             if ((score + 30) >= mappedScore)
@@ -258,8 +258,8 @@ void loop()
                                     myDFPlayer.play(3);
                                     lossPlaying = false;
                                 }
-                                 dmd.clearScreen(true);
-                                dmd.drawString(3, 0, lossMessage, 3, GRAPHICS_NORMAL);
+                                // dmd.clearScreen(true);
+                                dmd.drawString(3, 0, lossMessage, 5, GRAPHICS_NORMAL);
                             }
                             else
                             {
@@ -268,8 +268,8 @@ void loop()
                                     myDFPlayer.play(2);
                                     wonPlaying = false;
                                 }
-                                 dmd.clearScreen(true);
-                                dmd.drawString(3, 0, wonMessage, 3, GRAPHICS_NORMAL);
+                                 //dmd.clearScreen(true);
+                                dmd.drawString(3, 0, wonMessage, 5, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
                             break;
