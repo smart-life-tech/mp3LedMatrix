@@ -44,9 +44,9 @@ void printDetail(uint8_t type, int value);
 #define RESTART_BUTTON_PIN A2 // Pin for reset button
 
 char message[] = "GO GO GO";
-char wonMessage[] = "BooM";
-char lossMessage[] = "Fail";
-char maxMessage[100] = "";
+char wonMessage[] = "   BooM  ";
+char lossMessage[] = "   Fail   ";
+char maxMessage[10] = "";
 uint16_t messageLength;
 
 int score = 0;
@@ -86,7 +86,6 @@ void setup()
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
-    dmd.drawString(3, 0, "lets play", 10, GRAPHICS_NORMAL);
     dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println(read());
 
@@ -113,8 +112,6 @@ void loop()
     // myDisplay.displayReset();
     // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
 
-    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
-
     dmd.drawMarquee(message, strlen(message), (32 * DISPLAYS_ACROSS) - 1, 0);
     boolean ret = false;
     while (!ret)
@@ -131,6 +128,7 @@ void loop()
     // Check if the first sensor detects movement
     if (digitalRead(PIR_SENSOR1_PIN) == LOW && firstSensorTime == 0)
     {
+        dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
         firstSensorTime = millis(); // Record the time when first sensor detects movement
         Serial.println("First sensor detected movement");
         if (playing)
@@ -202,8 +200,8 @@ void loop()
             int bar = map(score, 0, 999, 0, NUM_LEDS);
             colorWipe(CRGB::Red, 60, bar);
             sprintf(message, "%d", score);
-            //dmd.clearScreen(true);
-            dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+            // dmd.clearScreen(true);
+            dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
 
             if ((score + 30) >= mappedScore)
             {
@@ -268,7 +266,7 @@ void loop()
                                     myDFPlayer.play(2);
                                     wonPlaying = false;
                                 }
-                                 //dmd.clearScreen(true);
+                                // dmd.clearScreen(true);
                                 dmd.drawString(3, 0, wonMessage, 5, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
