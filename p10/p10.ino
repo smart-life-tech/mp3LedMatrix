@@ -110,7 +110,7 @@ void loop()
     bool wonPlaying = true;
     bool playing = true;
     // myDisplay.displayReset();
-    // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
+    //dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
 
     dmd.drawMarquee(message, strlen(message), (32 * DISPLAYS_ACROSS) - 1, 0);
     boolean ret = false;
@@ -128,7 +128,6 @@ void loop()
     // Check if the first sensor detects movement
     if (digitalRead(PIR_SENSOR1_PIN) == LOW && firstSensorTime == 0)
     {
-        dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
         firstSensorTime = millis(); // Record the time when first sensor detects movement
         Serial.println("First sensor detected movement");
         if (playing)
@@ -201,7 +200,7 @@ void loop()
             colorWipe(CRGB::Red, 60, bar);
             sprintf(message, "%d", score);
             // dmd.clearScreen(true);
-            dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
+            dmd.drawString(3, 0, maxMessage, 9, GRAPHICS_NORMAL);
 
             if ((score + 30) >= mappedScore)
             {
@@ -237,7 +236,7 @@ void loop()
                     if (currentMillis - previousMillis >= interval)
                     {
                         previousMillis = currentMillis; // Update the previous time
-
+                        dmd.clearScreen(true);
                         switch (currentText)
                         {
                         case 0:
