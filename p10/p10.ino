@@ -44,8 +44,8 @@ void printDetail(uint8_t type, int value);
 #define RESTART_BUTTON_PIN A2 // Pin for reset button
 
 char message[] = "GO GO GO";
-char wonMessage[] = "   BooM  ";
-char lossMessage[] = "   Fail   ";
+char wonMessage[] = "BooM  ";
+char lossMessage[] = "Fail   ";
 char maxMessage[10] = "";
 uint16_t messageLength;
 
