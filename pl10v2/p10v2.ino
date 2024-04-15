@@ -25,14 +25,14 @@ void setup(void)
     dmd.clearScreen(true);
     Serial.begin(115200);
 }
-int counter =0;
+int counter = 0;
 void loop(void)
 {
     dmd.selectFont(SystemFont5x7);
     // DMD.selectFont(Arial_Black_16);
     char buf[10];
     counter++;
-    String(counter).toCharArray(buf,10,0);
+    String(counter).toCharArray(buf, 10, 0);
     dmd.drawString(3, 0, "989", 3, GRAPHICS_NORMAL);
     dmd.drawString(3, 18, buf, 3, GRAPHICS_NORMAL);
     delay(1000);

@@ -201,6 +201,7 @@ void loop()
             sprintf(message, "%d", score);
             // dmd.clearScreen(true);
             dmd.drawString(3, 0, maxMessage, 9, GRAPHICS_NORMAL);
+            dmd.drawString(3, 18, message, 9, GRAPHICS_NORMAL);
 
             if ((score + 30) >= mappedScore)
             {
