@@ -103,7 +103,7 @@ void setup()
     delay(4000);
     Serial.println("code started finished final set up");
 }
-
+bool anim = true;
 void loop()
 {
     bool lossPlaying = true;
@@ -111,17 +111,20 @@ void loop()
     bool playing = true;
     // myDisplay.displayReset();
     // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
-
-    dmd.drawMarquee(message, strlen(message), (32 * DISPLAYS_ACROSS) - 1, 0);
-    boolean ret = false;
-    while (!ret)
+    if (anim)
     {
-        ret = dmd.stepMarquee(-1, 0);
-        delay(100);
-        if (digitalRead(PIR_SENSOR1_PIN) == LOW)
+        dmd.drawMarquee(message, strlen(message), (32 * DISPLAYS_ACROSS) - 1, 0);
+        boolean ret = false;
+        while (!ret)
         {
-           dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-            break;
+            ret = dmd.stepMarquee(-1, 0);
+            delay(100);
+            if (digitalRead(PIR_SENSOR1_PIN) == LOW)
+            {
+                dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                anim = false;
+                break;
+            }
         }
     }
 
