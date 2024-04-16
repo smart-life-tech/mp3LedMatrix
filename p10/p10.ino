@@ -122,6 +122,7 @@ void loop()
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
             {
                 dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
                 anim = false;
                 break;
             }
