@@ -245,7 +245,7 @@ void loop()
                         switch (currentText)
                         {
                         case 0:
-                            dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 0, "                   ", 20, GRAPHICS_NORMAL);
                             dmd.drawString(3, 0, message, 3, GRAPHICS_NORMAL);
                             checkscore(mappedScore);
 
@@ -273,7 +273,7 @@ void loop()
                                     wonPlaying = false;
                                 }
                                 // dmd.clearScreen(true);
-                                dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, "                ", 70, GRAPHICS_NORMAL);
                                 dmd.drawString(3, 0, wonMessage, 10, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
