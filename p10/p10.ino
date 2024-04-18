@@ -227,7 +227,7 @@ void loop()
             /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
             {
-                sprintf(message, "%d", mappedScore);
+                sprintf(message, "%d   ", mappedScore);
                 while (true)
                 {
                     // Check if reset button is pressed
@@ -245,8 +245,8 @@ void loop()
                         switch (currentText)
                         {
                         case 0:
-                            dmd.drawString(3, 0, "                   ", 20, GRAPHICS_NORMAL);
-                            dmd.drawString(3, 0, message, 3, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 18, "                   ", 20, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 18, message, 3, GRAPHICS_NORMAL);
                             checkscore(mappedScore);
 
                             currentText = 1;
@@ -291,7 +291,7 @@ void checkscore(int mappedScore)
     {
         write(mappedScore);
         maxScore = mappedScore;
-        sprintf(maxMessage, "%d", maxScore);
+        sprintf(maxMessage, "%d    ", maxScore);
         dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
         dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
@@ -299,7 +299,7 @@ void checkscore(int mappedScore)
     {
 
         maxScore = read();
-        sprintf(maxMessage, "%d", maxScore);
+        sprintf(maxMessage, "%d    ", maxScore);
         dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
         dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
