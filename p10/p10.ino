@@ -215,11 +215,11 @@ void loop()
             }
             else if ((score + 10) >= mappedScore)
             {
-                delay(600 / speed);
+                delay(500 / speed);
             }
             else if ((score + 7) >= mappedScore)
             {
-                delay(1500 / speed);
+                delay(1000 / speed);
             }
             else
             {
