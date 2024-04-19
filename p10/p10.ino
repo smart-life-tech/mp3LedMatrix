@@ -86,7 +86,7 @@ void setup()
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
-    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+    dmd.drawString(3, 10, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println(read());
 
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
@@ -121,8 +121,8 @@ void loop()
             delay(100);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
             {
-                dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
                 dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                dmd.drawString(3, 10, "           ", 10, GRAPHICS_NORMAL);
                 anim = false;
                 break;
             }
@@ -204,8 +204,8 @@ void loop()
             colorWipe(CRGB::Red, 60, bar);
             sprintf(message, " %d   ", score);
             // dmd.clearScreen(true);
-            dmd.drawString(3, 0, maxMessage, 9, GRAPHICS_NORMAL);
-            dmd.drawString(3, 18, message, 10, GRAPHICS_NORMAL);
+            dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
+            dmd.drawString(3, 10, message, 10, GRAPHICS_NORMAL);
 
             if ((score + 30) >= mappedScore)
             {
@@ -241,12 +241,12 @@ void loop()
                     if (currentMillis - previousMillis >= interval)
                     {
                         previousMillis = currentMillis; // Update the previous time
-                        dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
                         switch (currentText)
                         {
                         case 0:
-                            dmd.drawString(3, 18, "                   ", 20, GRAPHICS_NORMAL);
-                            dmd.drawString(3, 18, message, 3, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 10, "                   ", 20, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 10, message, 3, GRAPHICS_NORMAL);
                             checkscore(mappedScore);
 
                             currentText = 1;
@@ -262,8 +262,8 @@ void loop()
                                     lossPlaying = false;
                                 }
                                 // dmd.clearScreen(true);
-                                dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 0, lossMessage, 5, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 18, lossMessage, 5, GRAPHICS_NORMAL);
                             }
                             else
                             {
@@ -273,8 +273,8 @@ void loop()
                                     wonPlaying = false;
                                 }
                                 // dmd.clearScreen(true);
-                                dmd.drawString(3, 0, "                ", 70, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 0, wonMessage, 10, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 18, "                ", 70, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 18, wonMessage, 10, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
                             break;
@@ -292,16 +292,16 @@ void checkscore(int mappedScore)
         write(mappedScore);
         maxScore = mappedScore;
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
     }
     else
     {
 
         maxScore = read();
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
     }
 }
 void mp3setup()
