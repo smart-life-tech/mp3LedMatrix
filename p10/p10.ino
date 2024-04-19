@@ -402,5 +402,5 @@ void buzzerFunc(bool status)
 {
     digitalWrite(buzzer, status);
     // Play a sound when counting the score
-    buzzerr.play(1000, );
+    buzzerr.play(1000,5 );
 }
