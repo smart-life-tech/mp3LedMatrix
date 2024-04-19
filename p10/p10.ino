@@ -203,7 +203,7 @@ void loop()
             buzzerFunc(HIGH);
             int bar = map(score, 0, 999, 0, NUM_LEDS);
             colorWipe(CRGB::Red, 60, bar);
-            sprintf(message, "  %d   ", score);
+            sprintf(message, "%d   ", score);
             // dmd.clearScreen(true);
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
