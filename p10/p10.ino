@@ -86,7 +86,7 @@ void setup()
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
-    dmd.drawString(3, 10, maxMessage, 3, GRAPHICS_NORMAL);
+    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println(read());
 
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
@@ -123,7 +123,7 @@ void loop()
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
             {
                 dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                dmd.drawString(3, 10, "           ", 10, GRAPHICS_NORMAL);
+                dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
                 anim = false;
                 break;
             }
