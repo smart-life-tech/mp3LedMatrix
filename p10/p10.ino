@@ -242,7 +242,7 @@ void loop()
                     if (currentMillis - previousMillis >= interval)
                     {
                         previousMillis = currentMillis; // Update the previous time
-                       // dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                       dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
                         switch (currentText)
                         {
                         case 0:
