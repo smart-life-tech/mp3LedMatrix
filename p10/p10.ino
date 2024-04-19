@@ -13,8 +13,16 @@
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
 int speed1 = 100;
-int speed2 = 600;
-int speed3 = 1500;
+int speed2 = 200;
+int speed3 = 300;
+int speed4 = 400;
+int speed5 = 500;
+int speed6 = 600;
+int speed7 = 700;
+int speed8 = 800;
+int speed9 = 900;
+int speed10 = 1000;
+
 #define DISPLAYS_DOWN 2
 DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
 
@@ -211,21 +219,47 @@ void loop()
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
 
-            if ((score + 30) >= mappedScore)
-            {
-                delay(speed1);
-            }
-            else if ((score + 10) >= mappedScore)
+            if ((score) >= 100)
             {
                 delay(speed2);
             }
-            else if ((score + 7) >= mappedScore)
+            else if ((score) >= 200)
             {
                 delay(speed3);
             }
+            else if ((score) >= 300)
+            {
+                delay(speed4);
+            }
+
+            else if ((score) >= 400)
+            {
+                delay(speed5);
+            }
+            else if ((score) >= 500)
+            {
+                delay(speed6);
+            }
+            else if ((score) >= 600)
+            {
+                delay(speed7);
+            }
+
+            else if ((score) >= 700)
+            {
+                delay(speed8);
+            }
+            else if ((score) >= 800)
+            {
+                delay(speed9);
+            }
+            else if ((score) >= 900)
+            {
+                delay(speed10);
+            }
             else
             {
-                delay(30);
+                delay(speed1);
             }
             // checkscore(score);
             /// buzzerFunc(LOW);
