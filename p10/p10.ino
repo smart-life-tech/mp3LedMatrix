@@ -114,6 +114,7 @@ void loop()
     if (anim)
     {
         dmd.drawMarquee(message, strlen(message), (16 * DISPLAYS_ACROSS) - 1, 0);
+        dmd.drawString(3, 10, maxMessage, 3, GRAPHICS_NORMAL);
         boolean ret = false;
         while (!ret)
         {
