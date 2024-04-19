@@ -12,7 +12,7 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
-
+int speed = 2;
 #define DISPLAYS_DOWN 2
 DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
 
@@ -211,15 +211,15 @@ void loop()
 
             if ((score + 30) >= mappedScore)
             {
-                delay(100);
+                delay(100 / speed);
             }
             else if ((score + 10) >= mappedScore)
             {
-                delay(600);
+                delay(600 / speed);
             }
             else if ((score + 7) >= mappedScore)
             {
-                delay(1500);
+                delay(1500 / speed);
             }
             else
             {
@@ -243,7 +243,7 @@ void loop()
                     if (currentMillis - previousMillis >= interval)
                     {
                         previousMillis = currentMillis; // Update the previous time
-                       dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                        dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
                         switch (currentText)
                         {
                         case 0:
@@ -402,5 +402,5 @@ void buzzerFunc(bool status)
 {
     digitalWrite(buzzer, status);
     // Play a sound when counting the score
-    buzzerr.play(1000,5 );
+    buzzerr.play(1000, 5);
 }
