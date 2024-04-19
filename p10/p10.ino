@@ -12,7 +12,9 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
-int speed = 2;
+int speed1 = 100;
+int speed2 = 600;
+int speed3 = 1500;
 #define DISPLAYS_DOWN 2
 DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
 
@@ -211,15 +213,15 @@ void loop()
 
             if ((score + 30) >= mappedScore)
             {
-                delay(100 / speed);
+                delay(speed1);
             }
             else if ((score + 10) >= mappedScore)
             {
-                delay(500 / speed);
+                delay(speed2);
             }
             else if ((score + 7) >= mappedScore)
             {
-                delay(1000 / speed);
+                delay(speed3);
             }
             else
             {
