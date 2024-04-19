@@ -138,6 +138,7 @@ void loop()
         {
             myDFPlayer.loop(4);
             playing = false;
+            dmd.clearScreen(true);
         }
         // myDFPlayer.stop(); // stop playing
     }
@@ -205,7 +206,7 @@ void loop()
             sprintf(message, " %d   ", score);
             // dmd.clearScreen(true);
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
-            dmd.drawString(3, 10, message, 10, GRAPHICS_NORMAL);
+            dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
 
             if ((score + 30) >= mappedScore)
             {
@@ -245,8 +246,8 @@ void loop()
                         switch (currentText)
                         {
                         case 0:
-                            dmd.drawString(3, 10, "                   ", 20, GRAPHICS_NORMAL);
-                            dmd.drawString(3, 10, message, 3, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 0, "                   ", 20, GRAPHICS_NORMAL);
+                            dmd.drawString(3, 0, message, 3, GRAPHICS_NORMAL);
                             checkscore(mappedScore);
 
                             currentText = 1;
@@ -262,8 +263,8 @@ void loop()
                                     lossPlaying = false;
                                 }
                                 // dmd.clearScreen(true);
-                                dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 18, lossMessage, 5, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, lossMessage, 5, GRAPHICS_NORMAL);
                             }
                             else
                             {
@@ -273,8 +274,8 @@ void loop()
                                     wonPlaying = false;
                                 }
                                 // dmd.clearScreen(true);
-                                dmd.drawString(3, 18, "                ", 70, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 18, wonMessage, 10, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, "                ", 70, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, wonMessage, 10, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
                             break;
@@ -292,16 +293,16 @@ void checkscore(int mappedScore)
         write(mappedScore);
         maxScore = mappedScore;
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
     else
     {
 
         maxScore = read();
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
 }
 void mp3setup()
