@@ -12,7 +12,7 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
-int speed1 = 100;
+//int speed1 = 100;
 int speed2 = 200;
 int speed3 = 300;
 int speed4 = 400;
@@ -219,48 +219,45 @@ void loop()
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
 
-            if ((score) >= 100)
+            if ((score) <= 100)
             {
                 delay(speed2);
             }
-            else if ((score) >= 200)
+            else if ((score) <= 200)
             {
                 delay(speed3);
             }
-            else if ((score) >= 300)
+            else if ((score) <= 300)
             {
                 delay(speed4);
             }
 
-            else if ((score) >= 400)
+            else if ((score) <= 400)
             {
                 delay(speed5);
             }
-            else if ((score) >= 500)
+            else if ((score) <= 500)
             {
                 delay(speed6);
             }
-            else if ((score) >= 600)
+            else if ((score) <= 600)
             {
                 delay(speed7);
             }
 
-            else if ((score) >= 700)
+            else if ((score) <= 700)
             {
                 delay(speed8);
             }
-            else if ((score) >= 800)
+            else if ((score) <= 800)
             {
                 delay(speed9);
             }
-            else if ((score) >= 900)
+            else if ((score) <= 900)
             {
                 delay(speed10);
             }
-            else
-            {
-                delay(speed1);
-            }
+            
             // checkscore(score);
             /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
