@@ -307,7 +307,7 @@ void loop()
                                 }
                                 // dmd.clearScreen(true);
                                 dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 0, lossMessage, 50, GRAPHICS_NORMAL);
+                                dmd.drawString(0, 0, lossMessage, 50, GRAPHICS_NORMAL);
                             }
                             else
                             {
@@ -318,7 +318,7 @@ void loop()
                                 }
                                 // dmd.clearScreen(true);
                                 dmd.drawString(3, 0, "                ", 70, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 0, wonMessage, 50, GRAPHICS_NORMAL);
+                                dmd.drawString(0, 0, wonMessage, 50, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
                             break;
