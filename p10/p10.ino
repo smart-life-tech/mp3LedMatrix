@@ -12,16 +12,16 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
-//int speed1 = 100;
-int speed2 = 200;
-int speed3 = 300;
-int speed4 = 400;
-int speed5 = 500;
-int speed6 = 600;
-int speed7 = 700;
-int speed8 = 800;
-int speed9 = 900;
-int speed10 = 1000;
+// int speed1 = 100;
+int speed2 = 20;
+int speed3 = 30;
+int speed4 = 40;
+int speed5 = 50;
+int speed6 = 60;
+int speed7 = 70;
+int speed8 = 80;
+int speed9 = 90;
+int speed10 = 100;
 
 #define DISPLAYS_DOWN 2
 DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
@@ -92,7 +92,7 @@ void setup()
     Timer1.initialize(1000);
     Timer1.attachInterrupt(ScanDMD);
     dmd.clearScreen(true);
-    dmd.selectFont(SystemFont5x7);
+    dmd.selectFont(Arial_Black_16);
     maxScore = read();
     // buf[19] = '\0';
     sprintf(maxMessage, "%d", maxScore);
@@ -222,42 +222,51 @@ void loop()
             if ((score) <= 100)
             {
                 delay(speed2);
+                Serial.println("speed 100");
             }
             else if ((score) <= 200)
             {
                 delay(speed3);
+                Serial.println("speed 200");
             }
             else if ((score) <= 300)
             {
                 delay(speed4);
+                Serial.println("speed 300");
             }
 
             else if ((score) <= 400)
             {
                 delay(speed5);
+                Serial.println("speed 400");
             }
             else if ((score) <= 500)
             {
                 delay(speed6);
+                Serial.println("speed 500");
             }
             else if ((score) <= 600)
             {
                 delay(speed7);
+                Serial.println("speed 600");
             }
 
             else if ((score) <= 700)
             {
                 delay(speed8);
+                Serial.println("speed 800");
             }
             else if ((score) <= 800)
             {
                 delay(speed9);
+                Serial.println("speed 900");
             }
             else if ((score) <= 900)
             {
                 delay(speed10);
+                Serial.println("speed 1000");
             }
-            
+
             // checkscore(score);
             /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
@@ -298,7 +307,7 @@ void loop()
                                 }
                                 // dmd.clearScreen(true);
                                 dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 0, lossMessage, 5, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, lossMessage, 50, GRAPHICS_NORMAL);
                             }
                             else
                             {
@@ -309,7 +318,7 @@ void loop()
                                 }
                                 // dmd.clearScreen(true);
                                 dmd.drawString(3, 0, "                ", 70, GRAPHICS_NORMAL);
-                                dmd.drawString(3, 0, wonMessage, 10, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, wonMessage, 50, GRAPHICS_NORMAL);
                             }
                             currentText = 0;
                             break;
