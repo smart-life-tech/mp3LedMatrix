@@ -123,7 +123,7 @@ void loop()
     // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
     if (anim)
     {
-        dmd.drawMarquee(message, strlen(message), (10 * DISPLAYS_ACROSS) - 1, 0);
+        dmd.drawMarquee(message, strlen(message), (3 * DISPLAYS_ACROSS) - 1, 0);
         dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
         boolean ret = false;
         while (!ret)
