@@ -103,7 +103,7 @@ void setup()
     if (read() >= 999)
     {
         Serial.println("score is greater than 999 formatting eeprom");
-        //  write(0);
+         write(0);
     }
 
     Serial.println("code started");
@@ -198,7 +198,7 @@ void loop()
             // checkscore(mappedScore);
         }
 
-        if (mappedScore > 999)
+        if (mappedScore >= 999)
         {
             mappedScore = 999;
         }
@@ -412,7 +412,7 @@ void rebootArduino()
 
 void write(int number)
 {
-    if (number == 0)
+    if (number == 0 || number == 999)
     {
         EEPROM.write(0, 0);
         EEPROM.write(1, 0);
