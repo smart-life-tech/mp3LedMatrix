@@ -103,7 +103,7 @@ void setup()
     if (read() >= 999)
     {
         Serial.println("score is greater than 999 formatting eeprom");
-         write(0);
+        write(0);
     }
 
     Serial.println("code started");
@@ -124,10 +124,11 @@ void loop()
     if (anim)
     {
         dmd.drawMarquee(message, strlen(message), (3 * DISPLAYS_ACROSS) - 1, 0);
-        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+
         boolean ret = false;
         while (!ret)
         {
+            dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
             ret = dmd.stepMarquee(-1, 0);
             delay(100);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
