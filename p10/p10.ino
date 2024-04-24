@@ -95,7 +95,7 @@ void setup()
     dmd.selectFont(Arial_Black_16);
     maxScore = read();
     // buf[19] = '\0';
-    sprintf(maxMessage, "%d", maxScore);
+    sprintf(maxMessage, "  %d  ", maxScore);
     dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     Serial.println(read());
 
@@ -272,7 +272,7 @@ void loop()
             /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
             {
-                sprintf(message, "%d   ", mappedScore);
+                sprintf(message, " %d   ", mappedScore);
                 while (true)
                 {
                     // Check if reset button is pressed
@@ -405,6 +405,7 @@ void mp3setup()
                         // delay(5000);
                         // myDFPlayer.stop(); // Play the first mp3
 }
+
 void rebootArduino()
 {
     asm volatile("jmp 0"); // Perform a software reset by jumping to address 0
@@ -426,6 +427,7 @@ void write(int number)
         EEPROM.write(2, number % 10);
     }
 }
+
 int read()
 {
     int h = EEPROM.read(0);
@@ -433,6 +435,7 @@ int read()
     int u = EEPROM.read(2);
     return h * 100 + t * 10 + u;
 }
+
 void colorWipe(CRGB color, int wait, int ledss)
 {
     for (int i = 0; i < ledss; i++)
@@ -441,6 +444,7 @@ void colorWipe(CRGB color, int wait, int ledss)
         FastLED.show();
     }
 }
+
 void buzzerFunc(bool status)
 {
     digitalWrite(buzzer, status);
