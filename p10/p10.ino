@@ -128,7 +128,9 @@ void loop()
         boolean ret = false;
         while (!ret)
         {
-            //dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+            dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+            dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+            dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
             ret = dmd.stepMarquee(-1, 0);
             delay(100);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
