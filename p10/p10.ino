@@ -72,6 +72,12 @@ unsigned long previousMillis = 0; // Variable to store the previous time
 unsigned long interval = 1500;    // Interval in milliseconds
 int currentText = 0;
 int maxScore = 0;
+
+int calculateDelay(int score, int minDelay, int maxDelay)
+{
+    // Map the score range (0-1000) to the delay range (minDelay-maxDelay)
+    return map(score, 0, 1000, minDelay, maxDelay);
+}
 void ScanDMD()
 {
     dmd.scanDisplayBySPI();
@@ -129,8 +135,8 @@ void loop()
         {
             dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
             int y = 32 - i;
-            //int y = 128 - i;
-            
+            // int y = 128 - i;
+
             dmd.drawString(y, 2, message, strlen(message), GRAPHICS_NORMAL);
             delay(50);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
@@ -139,25 +145,6 @@ void loop()
                 break;
             }
         }
-        /*
-                dmd.drawMarquee(message, strlen(message), (3 * DISPLAYS_ACROSS) - 1, 0);
-                dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
-                boolean ret = false;
-                while (!ret)
-                {
-                    dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
-                    dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                    ret = dmd.stepMarquee(-1, 0);
-                    delay(100);
-                    if (digitalRead(PIR_SENSOR1_PIN) == LOW)
-                    {
-                        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                        anim = false;
-                        break;
-                    }
-                }*/
     }
 
     // Check if the first sensor detects movement
@@ -238,8 +225,9 @@ void loop()
             // dmd.clearScreen(true);
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
-
-            if ((score) <= 100)
+            int delayTime = calculateDelay(score, 0, 1000);
+            delay(delayTime);
+            /*if ((score) <= delayTime)
             {
                 delay(speed1);
                 Serial.println("speed 100");
@@ -291,7 +279,7 @@ void loop()
                 delay(speed10);
                 Serial.println("speed 10000");
             }
-
+*/
             // checkscore(score);
             /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
