@@ -73,15 +73,17 @@ unsigned long interval = 1500;    // Interval in milliseconds
 int currentText = 0;
 int maxScore = 0;
 
-int calculateDelay(int score, int minDelay, int maxDelay)
+int calculateDelay(int score, int maped, int minDelay, int maxDelay)
 {
     // Map the score range (0-1000) to the delay range (minDelay-maxDelay)
-    return map(score, 0, 1000, minDelay, maxDelay);
+    return map(score, 0, maped, minDelay, maxDelay);
 }
+
 void ScanDMD()
 {
     dmd.scanDisplayBySPI();
 }
+
 void setup()
 {
     Serial.begin(115200);
@@ -225,7 +227,7 @@ void loop()
             // dmd.clearScreen(true);
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
-            int delayTime = calculateDelay(score, 0, 1000);
+            int delayTime = calculateDelay(score, mappedScore, 0, 1000);
             delay(delayTime);
             /*if ((score) <= delayTime)
             {
