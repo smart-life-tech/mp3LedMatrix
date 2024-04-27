@@ -12,7 +12,7 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
-// int speed1 = 100;
+ int speed1 = 100;
 int speed2 = 20;
 int speed3 = 30;
 int speed4 = 40;
@@ -129,7 +129,7 @@ void loop()
         {
             dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
 
-            int y = 128-i;
+            int y = 128 - i;
             dmd.drawString(y, 0, message, strlen(message), GRAPHICS_NORMAL);
             delay(50);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
@@ -237,47 +237,52 @@ void loop()
 
             if ((score) <= 100)
             {
-                delay(speed2);
+                delay(speed1);
                 Serial.println("speed 100");
             }
             else if ((score) <= 200)
             {
-                delay(speed3);
+                delay(speed2);
                 Serial.println("speed 200");
             }
             else if ((score) <= 300)
             {
-                delay(speed4);
+                delay(speed3);
                 Serial.println("speed 300");
             }
 
             else if ((score) <= 400)
             {
-                delay(speed5);
+                delay(speed4);
                 Serial.println("speed 400");
             }
             else if ((score) <= 500)
             {
-                delay(speed6);
+                delay(speed5);
                 Serial.println("speed 500");
             }
             else if ((score) <= 600)
             {
-                delay(speed7);
+                delay(speed6);
                 Serial.println("speed 600");
             }
 
             else if ((score) <= 700)
             {
-                delay(speed8);
+                delay(speed7);
                 Serial.println("speed 800");
             }
             else if ((score) <= 800)
             {
-                delay(speed9);
+                delay(speed8);
                 Serial.println("speed 900");
             }
             else if ((score) <= 900)
+            {
+                delay(speed9);
+                Serial.println("speed 1000");
+            }
+            else if ((score) <= 1000)
             {
                 delay(speed10);
                 Serial.println("speed 1000");
