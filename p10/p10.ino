@@ -289,7 +289,7 @@ void loop()
             else if ((score) <= 1000)
             {
                 delay(speed10);
-                Serial.println("speed 1000");
+                Serial.println("speed 10000");
             }
 
             // checkscore(score);
