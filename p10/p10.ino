@@ -122,25 +122,37 @@ void loop()
     // myDisplay.displayReset();
     // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
     if (anim)
+
     {
-        dmd.drawMarquee(message, strlen(message), (3 * DISPLAYS_ACROSS) - 1, 0);
         dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
-        boolean ret = false;
-        while (!ret)
+        for (int i = 0; i <= 16; i++)
         {
-            dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-            dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
-            dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-            ret = dmd.stepMarquee(-1, 0);
-            delay(100);
+
+            int y = 32 - i;
+            dmd.drawString(y, 4, message, 1, GRAPHICS_NORMAL);
+            delay(50);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
-            {
-                dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-                anim = false;
                 break;
-            }
         }
+        /*
+                dmd.drawMarquee(message, strlen(message), (3 * DISPLAYS_ACROSS) - 1, 0);
+                dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+                boolean ret = false;
+                while (!ret)
+                {
+                    dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                    dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+                    dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                    ret = dmd.stepMarquee(-1, 0);
+                    delay(100);
+                    if (digitalRead(PIR_SENSOR1_PIN) == LOW)
+                    {
+                        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+                        anim = false;
+                        break;
+                    }
+                }*/
     }
 
     // Check if the first sensor detects movement
