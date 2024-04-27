@@ -12,7 +12,7 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
- int speed1 = 100;
+int speed1 = 100;
 int speed2 = 20;
 int speed3 = 30;
 int speed4 = 40;
@@ -121,7 +121,7 @@ void loop()
     bool playing = true;
     // myDisplay.displayReset();
     // dmd.drawString(3, 0, maxMessage, 3, GRAPHICS_NORMAL);
-    if (anim)
+    while (anim)
 
     {
         dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
@@ -133,7 +133,10 @@ void loop()
             dmd.drawString(y, 0, message, strlen(message), GRAPHICS_NORMAL);
             delay(50);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
+            {
+                anim = false;
                 break;
+            }
         }
         /*
                 dmd.drawMarquee(message, strlen(message), (3 * DISPLAYS_ACROSS) - 1, 0);
