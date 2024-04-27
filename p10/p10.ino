@@ -12,16 +12,16 @@
 #include "SystemFont5x7.h"
 
 #define DISPLAYS_ACROSS 1 //-> Number of P10 panels used, side to side.
-int speed1 = 100;
-int speed2 = 20;
-int speed3 = 30;
-int speed4 = 40;
-int speed5 = 50;
-int speed6 = 60;
-int speed7 = 70;
-int speed8 = 80;
-int speed9 = 90;
-int speed10 = 100;
+int speed1 = 0;
+int speed2 = 0;
+int speed3 = 0;
+int speed4 = 0;
+int speed5 = 0;
+int speed6 = 0;
+int speed7 = 0;
+int speed8 = 0;
+int speed9 = 9;
+int speed10 = 10;
 
 #define DISPLAYS_DOWN 2
 DMD dmd(DISPLAYS_ACROSS, DISPLAYS_DOWN);
@@ -130,7 +130,8 @@ void loop()
             dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
             int y = 32 - i;
             //int y = 128 - i;
-            dmd.drawString(y, 0, message, strlen(message), GRAPHICS_NORMAL);
+            
+            dmd.drawString(y, 2, message, strlen(message), GRAPHICS_NORMAL);
             delay(50);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
             {
