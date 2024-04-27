@@ -127,6 +127,7 @@ void loop()
         dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
         for (int i = 0; i <= 16; i++)
         {
+            dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
 
             int y = 32 - i;
             dmd.drawString(y, 4, message, 1, GRAPHICS_NORMAL);
