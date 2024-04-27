@@ -129,7 +129,7 @@ void loop()
         {
             dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
 
-            int y = i;
+            int y = 128-i;
             dmd.drawString(y, 0, message, strlen(message), GRAPHICS_NORMAL);
             delay(50);
             if (digitalRead(PIR_SENSOR1_PIN) == LOW)
