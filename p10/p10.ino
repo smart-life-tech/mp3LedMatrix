@@ -76,7 +76,7 @@ int maxScore = 0;
 int calculateDelay(int score, int maped)
 {
     // Map the score range (0-1000) to the delay range (minDelay-maxDelay)
-    return int((score / maped) * 1000);
+    return int(int(score / maped) * 1000);
 }
 
 void ScanDMD()
@@ -228,7 +228,8 @@ void loop()
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
             int delayTime = calculateDelay(score, mappedScore);
-           // delay(delayTime);
+            Serial.print("delayTime: ");
+            Serial.println(delayTime);
             if ((delayTime) <= 100)
             {
                 delay(speed1);
