@@ -73,10 +73,10 @@ unsigned long interval = 1500;    // Interval in milliseconds
 int currentText = 0;
 int maxScore = 0;
 
-int calculateDelay(int score, int maped, int minDelay, int maxDelay)
+int calculateDelay(int score, int maped)
 {
     // Map the score range (0-1000) to the delay range (minDelay-maxDelay)
-    return map(score, 0, maped, minDelay, maxDelay);
+    return (score / maped) * 1000;
 }
 
 void ScanDMD()
@@ -227,61 +227,61 @@ void loop()
             // dmd.clearScreen(true);
             dmd.drawString(3, 18, maxMessage, 9, GRAPHICS_NORMAL);
             dmd.drawString(3, 0, message, 10, GRAPHICS_NORMAL);
-            int delayTime = calculateDelay(score, mappedScore, 0, 1000);
-            delay(delayTime);
-            /*if ((score) <= delayTime)
+            int delayTime = calculateDelay(score, mappedScore);
+           // delay(delayTime);
+            if ((delayTime) <= 100)
             {
                 delay(speed1);
                 Serial.println("speed 100");
             }
-            else if ((score) <= 200)
+            else if ((delayTime) <= 200)
             {
                 delay(speed2);
                 Serial.println("speed 200");
             }
-            else if ((score) <= 300)
+            else if ((delayTime) <= 300)
             {
                 delay(speed3);
                 Serial.println("speed 300");
             }
 
-            else if ((score) <= 400)
+            else if ((delayTime) <= 400)
             {
                 delay(speed4);
                 Serial.println("speed 400");
             }
-            else if ((score) <= 500)
+            else if ((delayTime) <= 500)
             {
                 delay(speed5);
                 Serial.println("speed 500");
             }
-            else if ((score) <= 600)
+            else if ((delayTime) <= 600)
             {
                 delay(speed6);
                 Serial.println("speed 600");
             }
 
-            else if ((score) <= 700)
+            else if ((delayTime) <= 700)
             {
                 delay(speed7);
                 Serial.println("speed 800");
             }
-            else if ((score) <= 800)
+            else if ((delayTime) <= 800)
             {
                 delay(speed8);
                 Serial.println("speed 900");
             }
-            else if ((score) <= 900)
+            else if ((delayTime) <= 900)
             {
                 delay(speed9);
                 Serial.println("speed 1000");
             }
-            else if ((score) <= 1000)
+            else if ((delayTime) <= 1000)
             {
                 delay(speed10);
                 Serial.println("speed 10000");
             }
-*/
+
             // checkscore(score);
             /// buzzerFunc(LOW);
             if (score == mappedScore - 1 || score == mappedScore)
@@ -351,16 +351,16 @@ void checkscore(int mappedScore)
         write(mappedScore);
         maxScore = mappedScore;
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(0, 18, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(0, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
     else
     {
 
         maxScore = read();
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(0, 18, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(0, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
 }
 void mp3setup()
