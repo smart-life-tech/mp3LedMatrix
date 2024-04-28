@@ -76,7 +76,7 @@ int maxScore = 0;
 int calculateDelay(int score, int maped)
 {
     // Map the score range (0-1000) to the delay range (minDelay-maxDelay)
-    return (score / maped) * 1000;
+    return int((score / maped) * 1000);
 }
 
 void ScanDMD()
@@ -322,7 +322,7 @@ void loop()
                                 }
                                 // dmd.clearScreen(true);
                                 dmd.drawString(3, 0, "           ", 10, GRAPHICS_NORMAL);
-                                dmd.drawString(0, 0, lossMessage, 50, GRAPHICS_NORMAL);
+                                dmd.drawString(3, 0, lossMessage, 50, GRAPHICS_NORMAL);
                             }
                             else
                             {
@@ -351,16 +351,16 @@ void checkscore(int mappedScore)
         write(mappedScore);
         maxScore = mappedScore;
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(0, 18, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(0, 18, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
     else
     {
 
         maxScore = read();
         sprintf(maxMessage, "%d    ", maxScore);
-        dmd.drawString(0, 18, "           ", 10, GRAPHICS_NORMAL);
-        dmd.drawString(0, 18, maxMessage, 3, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, "           ", 10, GRAPHICS_NORMAL);
+        dmd.drawString(3, 18, maxMessage, 3, GRAPHICS_NORMAL);
     }
 }
 void mp3setup()
