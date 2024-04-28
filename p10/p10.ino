@@ -76,8 +76,9 @@ int maxScore = 0;
 int calculateDelay(int score, int maped)
 {
     // Map the score range (0-1000) to the delay range (minDelay-maxDelay)
-    return int(int(score / maped) * 1000);
+    return static_cast<int>((static_cast<float>(score) / maped) * 1000);
 }
+
 
 void ScanDMD()
 {
