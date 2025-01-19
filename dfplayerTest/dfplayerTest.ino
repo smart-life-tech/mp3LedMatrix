@@ -1,4 +1,4 @@
-// this example will play a track and then 
+// this example will play a track and then
 // every five seconds play another track
 //
 // it expects the sd card to contain these three mp3 files
@@ -7,7 +7,7 @@
 // sd:/mp3/0001.mp3
 // sd:/mp3/0002.mp3
 // sd:/mp3/0003.mp3
-
+#include <SoftwareSerial.h>
 #include <DFMiniMp3.h>
 
 // forward declare the sketches managing class, just the name
@@ -16,13 +16,13 @@ class Mp3Manager;
 
 // define a handy type using hardware serial and our notify class wrapper
 //
-typedef DFMiniMp3<HardwareSerial, DfMp3Callback<Mp3Manager>> DfMp3;
+// typedef DFMiniMp3<HardwareSerial, DfMp3Callback<Mp3Manager>> DfMp3;
 
-// Some arduino boards only have one hardware serial port, 
+// Some arduino boards only have one hardware serial port,
 // so a software serial port is needed instead.
 // use this instead to define the DFMiniMp3
-//SoftwareSerial secondarySerial(10, 11); // RX, TX
-//typedef DFMiniMp3<SoftwareSerial, DfMp3Callback<Mp3Manager>> DfMp3;
+SoftwareSerial secondarySerial(10, 11); // RX, TX
+typedef DFMiniMp3<SoftwareSerial, DfMp3Callback<Mp3Manager>> DfMp3;
 
 // implement the sketches managing class,
 // this is the authors class doing what funtionality the author wants
@@ -32,9 +32,8 @@ typedef DFMiniMp3<HardwareSerial, DfMp3Callback<Mp3Manager>> DfMp3;
 class Mp3Manager
 {
 public:
-    Mp3Manager() :
-        _dfmp3(Serial1, this) // NOTE: passing this object as the notification target
-//      _dfmp3(secondarySerial, this); // for software serial
+    Mp3Manager() :                               //    _dfmp3(Serial1, this) // NOTE: passing this object as the notification target
+                   _dfmp3(secondarySerial, this) // for software serial
     {
     }
 
@@ -42,18 +41,18 @@ public:
     {
     }
 
-    // not required but common practice 
+    // not required but common practice
     // as _dfmp3.begin() must get called
     //
     void begin()
     {
-        _dfmp3.begin();
+        //_dfmp3.begin();
         // for boards that support hardware arbitrary pins
-        // _dfmp3.begin(10, 11); // RX, TX
+        _dfmp3.begin(10, 11); // RX, TX
 
         // during development, it's a good practice to put the module
-        // into a known state by calling reset().  
-        // You may hear popping when starting and you can remove this 
+        // into a known state by calling reset().
+        // You may hear popping when starting and you can remove this
         // call to reset() once your project is finalized
         _dfmp3.reset();
 
@@ -74,10 +73,10 @@ public:
         Serial.println("starting...");
 
         // start the first track playing
-        _dfmp3.playMp3FolderTrack(1);  // sd:/mp3/0001.mp3
+        _dfmp3.playMp3FolderTrack(1); // sd:/mp3/0001.mp3
     }
 
-    // not required but common practice 
+    // not required but common practice
     // as _dfmp3.loop() must get called
     //
     void loop()
@@ -107,7 +106,7 @@ public:
         {
             track = 1;
         }
-        _dfmp3.playMp3FolderTrack(track);  // sd:/mp3/0001.mp3, sd:/mp3/0002.mp3, sd:/mp3/0003.mp3
+        _dfmp3.playMp3FolderTrack(track); // sd:/mp3/0001.mp3, sd:/mp3/0002.mp3, sd:/mp3/0003.mp3
     }
 
     // required method
@@ -130,7 +129,7 @@ public:
 
 protected:
     // sketch specific example member, not required
-    void PrintlnSourceAction(DfMp3_PlaySources source, const char* action)
+    void PrintlnSourceAction(DfMp3_PlaySources source, const char *action)
     {
         if (source & DfMp3_PlaySources_Sd)
         {
@@ -166,8 +165,8 @@ void waitMilliseconds(uint16_t msWait)
 
     while ((millis() - start) < msWait)
     {
-        // if you have loops with delays, its important to 
-        // call dfmp3.loop() periodically so it allows for notifications 
+        // if you have loops with delays, its important to
+        // call dfmp3.loop() periodically so it allows for notifications
         // to be handled without interrupts
         mp3.loop();
         delay(1);
