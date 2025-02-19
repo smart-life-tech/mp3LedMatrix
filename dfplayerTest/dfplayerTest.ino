@@ -21,7 +21,7 @@ class Mp3Manager;
 // Some arduino boards only have one hardware serial port,
 // so a software serial port is needed instead.
 // use this instead to define the DFMiniMp3
-SoftwareSerial secondarySerial(10, 11); // RX, TX
+SoftwareSerial secondarySerial(3, 2); // RX, TX
 typedef DFMiniMp3<SoftwareSerial, DfMp3Callback<Mp3Manager>> DfMp3;
 
 // implement the sketches managing class,
