@@ -48,7 +48,7 @@ public:
     {
         _dfmp3.begin();
         // for boards that support hardware arbitrary pins
-       // _dfmp3.begin(10, 11); // RX, TX
+        // _dfmp3.begin(10, 11); // RX, TX
 
         // during development, it's a good practice to put the module
         // into a known state by calling reset().
@@ -107,6 +107,8 @@ public:
             track = 1;
         }
         _dfmp3.playMp3FolderTrack(track); // sd:/mp3/0001.mp3, sd:/mp3/0002.mp3, sd:/mp3/0003.mp3
+        Serial.println("track 1 from folder 1");
+        _dfmp3.playFolderTrack(1, 1); // sd:/01/001.mp3
     }
 
     // required method
