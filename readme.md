@@ -1,4 +1,26 @@
 
+# The files on the SD card for the DFPlayer Mini should follow this naming structure:
+
+- /mp3/001.mp3
+- /mp3/002.mp3
+- /mp3/003.mp3
+...
+- /mp3/100.mp3
+- /mp3/101.mp3
+...
+- /mp3/298.mp3
+
+
+# Key points for SD card file naming:
+
+Create an "mp3" folder in the root directory
+Name files with 3 digits (001, 002, etc.)
+Use .mp3 file extension
+Files must be in MP3 format
+Numbers must match the track numbers used in the code (100-298)
+Format SD card as FAT32
+The DFPlayer will read these files sequentially based on the numerical order. This naming convention ensures reliable playback and matches the track numbers referenced in the code
+
 ```cpp
 #define buzzer A3
 SoftwareSerial softSerial(/*rx =*3, /*tx =*/2);
