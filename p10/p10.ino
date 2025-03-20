@@ -157,7 +157,7 @@ void loop()
         Serial.println("First sensor detected movement");
         if (playing)
         {
-            myDFPlayer.loop(4);
+            myDFPlayer.play(4);
             playing = false;
             dmd.clearScreen(true);
         }
